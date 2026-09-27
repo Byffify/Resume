@@ -127,6 +127,6 @@ create policy entries_update on public.entries for update to authenticated using
 drop policy if exists entries_delete on public.entries;
 create policy entries_delete on public.entries for delete to authenticated using ((select public.is_site_owner()));
 
-insert into public.site_profile(id, data) values (1, '{"name":"Borworn","intro":"พื้นที่เล็ก ๆ สำหรับเรื่องราว ความสนใจ และสิ่งที่ได้เรียนรู้","about":"ยินดีต้อนรับสู่พื้นที่ของผม — ที่รวมประวัติ ผลงาน และบันทึกระหว่างทาง","experience":"","skills":"","interests":"","contacts":[],"projects":[]}'::jsonb)
+insert into public.site_profile(id, data) values (1, '{"name":"Borworn","intro":"A small space for stories, interests, and things I have learned.","about":"Welcome to my space for my background, projects, and notes along the way.","experience":"","skills":"","interests":"","contacts":[],"projects":[]}'::jsonb)
 on conflict (id) do nothing;
 commit;

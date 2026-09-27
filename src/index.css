@@ -304,6 +304,18 @@ fieldset {
 .project .meta {
   margin-top: 20px;
 }
+.project .prose {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #747775;
+}
+.project .prose p {
+  margin: 4px 0;
+}
+.project .prose ul {
+  margin: 4px 0;
+  padding-left: 20px;
+}
 .home-bottom {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr 1.2fr;

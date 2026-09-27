@@ -16,7 +16,7 @@ export function SignOut({ children, ...props }: ComponentProps<"a">) {
         try {
           await signOut();
         } catch {
-          setError("ออกจากระบบไม่สำเร็จ กรุณาลองอีกครั้ง");
+          setError("Could not sign out. Please try again.");
           setBusy(false);
         }
       }}

@@ -21,9 +21,9 @@ export type Profile = {
 };
 export const defaultProfile: Profile = {
   name: "Borworn",
-  intro: "พื้นที่เล็ก ๆ สำหรับเรื่องราว ความสนใจ และสิ่งที่ได้เรียนรู้",
+  intro: "A small space for stories, interests, and things I’ve learned.",
   about:
-    "ยินดีต้อนรับสู่พื้นที่ของผม — ที่รวมประวัติ ผลงาน และบันทึกระหว่างทาง",
+    "Welcome to my space for my background, projects, and notes along the way.",
   experience: "",
   skills: "",
   interests: "",
@@ -32,13 +32,13 @@ export const defaultProfile: Profile = {
 };
 export const date = (v: string | null) =>
   v
-    ? new Intl.DateTimeFormat("th-TH", {
+    ? new Intl.DateTimeFormat("en-GB", {
         day: "numeric",
         month: "short",
         year: "numeric",
         timeZone: "Asia/Bangkok",
       }).format(new Date(v))
-    : "ฉบับร่าง";
+    : "Draft";
 export function safeUrl(value: string, image = false) {
   try {
     const u = new URL(value);

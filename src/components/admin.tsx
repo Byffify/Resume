@@ -251,10 +251,10 @@ export default function Admin({
         setDirty(false);
       }
       if (isProfile) setProfileDirty(false);
-      setMessage("บันทึกเรียบร้อยแล้ว");
+      setMessage("Saved successfully");
     } catch (e) {
       setMessage(
-        e instanceof Error ? e.message : "บันทึกไม่สำเร็จ กรุณาลองอีกครั้ง",
+        e instanceof Error ? e.message : "Could not save. Please try again.",
       );
     } finally {
       setBusy(false);
@@ -323,7 +323,7 @@ export default function Admin({
           <div className="save-status" role="status" aria-live="polite">
             {message ||
               (dirty || profileDirty
-                ? "มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก"
+                ? "You have unsaved changes"
                 : "")}
           </div>
           {view === "profile" || view === "projects" ? (
@@ -345,7 +345,7 @@ export default function Admin({
                     Write and share <br />
                     what you’re learning.
                   </h1>
-                  <p>จดไอเดีย บันทึกสิ่งที่เรียนรู้ และเล่าในแบบของคุณ</p>
+                  <p>Capture ideas, record what you learn, and tell your story.</p>
                 </div>
                 <div className="writing-stats">
                   {counts.map((c, i) => (
@@ -423,8 +423,8 @@ export default function Admin({
                   {!filtered.length && (
                     <p className="blank">
                       {search
-                        ? "ไม่พบเนื้อหาที่ตรงกับคำค้น"
-                        : "เริ่มต้นด้วยบันทึกแรกของคุณ"}
+                        ? "No writing matches your search"
+                        : "Start with your first note"}
                     </p>
                   )}
                 </div>
@@ -469,7 +469,7 @@ export default function Admin({
                       value={draft.title}
                       maxLength={200}
                       onChange={(e) => update({ title: e.target.value })}
-                      placeholder="เริ่มต้นจากความคิดเล็ก ๆ"
+                      placeholder="Start with a small thought"
                     />
                   </label>
                   <div className="editor-meta">
@@ -511,7 +511,7 @@ export default function Admin({
                   <div className="paper-editor">
                     <div
                       className="format-toolbar"
-                      aria-label="จัดรูปแบบข้อความ"
+                      aria-label="Text formatting"
                     >
                       {[
                         { label: "Heading", icon: Heading2, start: "\n# " },
@@ -582,17 +582,17 @@ export default function Admin({
                     ) : (
                       <Textarea
                         ref={bodyRef}
-                        aria-label="เนื้อหา"
+                        aria-label="Content"
                         className="body-editor"
                         rows={18}
                         value={draft.body}
                         onChange={(e) => update({ body: e.target.value })}
-                        placeholder="เขียนสิ่งที่อยากจดไว้ตรงนี้…"
+                        placeholder="Write what you’d like to remember…"
                       />
                     )}
                   </div>
                   <div className="editor-footnote">
-                    <span>Markdown · แท็กคั่นด้วยเครื่องหมาย ,</span>
+                    <span>Markdown · Separate tags with commas</span>
                     <span className={"status-badge " + draft.status}>
                       {draft.status === "draft" ? "Draft" : "Published"}
                     </span>
@@ -620,20 +620,20 @@ export default function Admin({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>ยังไม่ได้บันทึกการแก้ไข</AlertDialogTitle>
+            <AlertDialogTitle>Unsaved changes</AlertDialogTitle>
             <AlertDialogDescription>
-              ต้องการทิ้งการแก้ไขล่าสุดและเปิดบันทึกอื่นหรือไม่?
+              Discard your changes and open another entry?
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>กลับไปเขียนต่อ</AlertDialogCancel>
+            <AlertDialogCancel>Keep writing</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
                 switchEntry(pending?.entry);
                 setPending(null);
               }}
             >
-              ทิ้งการแก้ไข
+              Discard changes
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -651,12 +651,12 @@ export default function Admin({
             </DialogTitle>
             <DialogDescription>
               {insert === "image"
-                ? "ใส่ลิงก์รูปภาพที่เปิดอ่านได้ผ่าน HTTPS"
-                : "ใส่ชื่อและ URL ของลิงก์"}
+                ? "Enter a publicly accessible HTTPS image URL"
+                : "Enter the link text and URL"}
             </DialogDescription>
           </DialogHeader>
           <label className="field">
-            {insert === "image" ? "คำอธิบายรูป" : "ข้อความลิงก์"}
+            {insert === "image" ? "Image description" : "Link text"}
             <Input
               value={caption}
               onChange={(e) => setCaption(e.target.value)}

@@ -2,6 +2,7 @@ import { Profile } from "@/lib/content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { bulletEdit } from "@/lib/bullet-list";
 export function ProfileForm({
   profile: p,
   onChange,
@@ -48,21 +49,21 @@ export function ProfileForm({
         {view === "profile" ? (
           <>
             <h1>Tell your story.</h1>
-            <p className="muted">ข้อมูลที่จะแสดงใน About และ Resume</p>
-            {field("name", "ชื่อที่แสดง")}
-            {field("intro", "แนะนำตัวสั้น ๆ")}
-            {field("about", "เกี่ยวกับคุณ", true)}
-            {field("experience", "ประสบการณ์ (รองรับ Markdown)", true)}
-            {field("skills", "ทักษะ", true)}
+            <p className="muted">Information shown on your About and Resume pages</p>
+            {field("name", "Display name")}
+            {field("intro", "Short introduction")}
+            {field("about", "About you", true)}
+            {field("experience", "Experience (supports Markdown)", true)}
+            {field("skills", "Skills", true)}
             {field(
               "interests",
-              "หัวข้อความสนใจ (คั่นด้วย , และใช้ชื่อเดียวกับแท็ก Notes)",
+              "Interests (comma-separated; use the same names as your Notes tags)",
             )}
             <h2>Get in touch</h2>
             {p.contacts.map((c, i) => (
               <div className="repeat-row" key={i}>
                 <label>
-                  ชื่อช่องทาง
+                  Contact name
                   <Input
                     value={c.label}
                     onChange={(e) =>
@@ -76,7 +77,7 @@ export function ProfileForm({
                   />
                 </label>
                 <label>
-                  URL, www. หรือ mailto:
+                  URL, www. or mailto:
                   <Input
                     value={c.url}
                     onChange={(e) =>
@@ -99,7 +100,7 @@ export function ProfileForm({
                     })
                   }
                 >
-                  นำออก
+                  Remove
                 </Button>
               </div>
             ))}
@@ -113,21 +114,21 @@ export function ProfileForm({
                 })
               }
             >
-              + เพิ่มช่องทาง
+              + Add contact
             </Button>
           </>
         ) : (
           <>
             <h1>Selected projects.</h1>
-            <p className="muted">ผลงานที่คุณอยากเล่าให้คนอื่นรู้จัก</p>
+            <p className="muted">Projects you’d like to share</p>
             {p.projects.map((project, i) => (
               <div className="project-edit" key={i}>
                 {(
                   [
-                    ["name", "ชื่อผลงาน"],
-                    ["description", "คำอธิบาย"],
+                    ["name", "Project name"],
+                    ["description", "Description"],
                     ["role", "Tech Stack"],
-                    ["url", "ลิงก์ผลงาน"],
+                    ["url", "Project URL"],
                   ] as const
                 ).map(([k, label]) => (
                   <label className="field" key={k}>
@@ -135,6 +136,20 @@ export function ProfileForm({
                     <Textarea
                       rows={k === "description" ? 3 : 1}
                       value={project[k]}
+                      onKeyDown={(e) => {
+                        if (k !== "description" || e.nativeEvent.isComposing || e.ctrlKey || e.metaKey || e.altKey) return;
+                        const target = e.currentTarget;
+                        const edit = bulletEdit(target.value, target.selectionStart, target.selectionEnd, e.key);
+                        if (!edit) return;
+                        e.preventDefault();
+                        onChange({
+                          ...p,
+                          projects: p.projects.map((x, j) =>
+                            i === j ? { ...x, description: edit.value } : x,
+                          ),
+                        });
+                        requestAnimationFrame(() => target.setSelectionRange(edit.caret, edit.caret));
+                      }}
                       onChange={(e) =>
                         onChange({
                           ...p,
@@ -156,7 +171,7 @@ export function ProfileForm({
                     })
                   }
                 >
-                  นำผลงานออก
+                  Remove project
                 </Button>
               </div>
             ))}
@@ -173,7 +188,7 @@ export function ProfileForm({
                 })
               }
             >
-              + เพิ่มผลงาน
+              + Add project
             </Button>
           </>
         )}

@@ -69,10 +69,10 @@ export default function App() {
   if (!supabase)
     return (
       <main className="access">
-        <h1>ตั้งค่าการเชื่อมต่อเว็บไซต์</h1>
+        <h1>Set up the website connection</h1>
         <p>
-          เพิ่ม VITE_SUPABASE_URL และ VITE_SUPABASE_PUBLISHABLE_KEY ใน
-          .env.local แล้วเริ่ม npm run dev ใหม่ ดูขั้นตอนใน README.md
+          Add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to
+          .env.local, then restart npm run dev. See README.md for instructions.
         </p>
       </main>
     );

@@ -8,7 +8,7 @@ export const supabase = url && key ? createClient(url, key) : null;
 
 export function requireSupabase() {
   if (!supabase)
-    throw new Error("กรุณาตั้งค่า Supabase ใน .env.local ก่อนใช้งาน");
+    throw new Error("Set up Supabase in .env.local before using the website.");
   return supabase;
 }
 

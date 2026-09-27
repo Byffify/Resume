@@ -1,9 +1,9 @@
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
     <main className="access">
-      <h1>โหลดข้อมูลไม่สำเร็จ</h1>
-      <p>กรุณาลองอีกครั้งในอีกสักครู่</p>
-      <button onClick={reset}>ลองอีกครั้ง</button>
+      <h1>Could not load the website</h1>
+      <p>Please try again in a moment.</p>
+      <button onClick={reset}>Try again</button>
     </main>
   );
 }

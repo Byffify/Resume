@@ -48,7 +48,7 @@ export async function saveContent(input: unknown): Promise<{ entry?: Entry }> {
       .select("id")
       .single();
     if (error)
-      throw new Error("บันทึกไม่สำเร็จ กรุณาตรวจสิทธิ์เจ้าของและการเชื่อมต่อ");
+      throw new Error("Could not save. Check your owner access and connection.");
     return {};
   }
   const { id, ...entry } = entrySchema.parse(input);
@@ -59,7 +59,7 @@ export async function saveContent(input: unknown): Promise<{ entry?: Entry }> {
   const { data: saved, error } = await query.select("*").single();
   if (error)
     throw new Error(
-      "บันทึกไม่สำเร็จ กรุณาตรวจสิทธิ์เจ้าของและข้อมูล เนื้อหายังอยู่ในแบบฟอร์ม",
+      "Could not save. Check your owner access and content. Your changes are still in the form.",
     );
   return { entry: saved as Entry };
 }

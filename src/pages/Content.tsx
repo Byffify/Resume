@@ -29,9 +29,9 @@ export default function Content({
     if (!data.owner)
       return (
         <main className="access">
-          <h1>ไม่มีสิทธิ์จัดการเว็บไซต์</h1>
-          <p>กรุณาเข้าสู่ระบบด้วยบัญชีเจ้าของเว็บไซต์</p>
-          <SignOut>เปลี่ยนบัญชี</SignOut>
+          <h1>You don’t have access to the owner area</h1>
+          <p>Please sign in with the site owner account.</p>
+          <SignOut>Switch account</SignOut>
         </main>
       );
     return (
@@ -57,7 +57,7 @@ export default function Content({
             <div className="post-end">
               <Tags tags={e.tags} />
               <p className="meta">
-                เผยแพร่ {date(e.published)} · อัปเดต {date(e.updated)}
+                Published {date(e.published)} · Updated {date(e.updated)}
               </p>
             </div>
           </div>
@@ -86,24 +86,24 @@ export default function Content({
               {p.experience ? (
                 <Markdown body={p.experience} />
               ) : (
-                <Empty>ยังไม่ได้เพิ่มประสบการณ์</Empty>
+                <Empty>No experience added yet</Empty>
               )}
             </section>
           </div>
           <aside>
             <h2>Skills</h2>
-            <p className="preserve">{p.skills || "ยังไม่ได้เพิ่มทักษะ"}</p>
+            <p className="preserve">{p.skills || "No skills added yet"}</p>
             <h2>Curiosities</h2>
             {interests.length ? (
               <Tags tags={interests} />
             ) : (
-              <p className="muted">ยังไม่ได้เพิ่มหัวข้อความสนใจ</p>
+              <p className="muted">No interests added yet</p>
             )}
             <h2 id="contact">Get in touch</h2>
             {p.contacts.length ? (
               <Contacts profile={p} />
             ) : (
-              <p className="muted">ยังไม่ได้เพิ่มช่องทางติดต่อ</p>
+              <p className="muted">No contact links added yet</p>
             )}
           </aside>
         </div>
@@ -115,7 +115,7 @@ export default function Content({
         <div className="page-heading">
           <span className="eyebrow">SELECTED WORK</span>
           <h1>Things I’ve built.</h1>
-          <p>ผลงาน เทคโนโลยีที่ใช้ และสิ่งที่เกิดขึ้นระหว่างทาง</p>
+          <p>Projects, the technology behind them, and what I learned along the way.</p>
         </div>
         {p.projects.length ? (
           <div className="resource-grid">
@@ -130,13 +130,13 @@ export default function Content({
                     x.name
                   )}
                 </h3>
-                <p>{x.description}</p>
+                <Markdown body={x.description} />
                 <p className="meta">Tech Stack · {x.role}</p>
               </article>
             ))}
           </div>
         ) : (
-          <Empty>ยังไม่มีผลงานที่เผยแพร่</Empty>
+          <Empty>No projects shared yet</Empty>
         )}
       </div>
     );
@@ -164,8 +164,8 @@ export default function Content({
           </h1>
           <p>
             {route === "notes"
-              ? "สิ่งที่สนใจ สิ่งที่เรียนรู้ และความคิดที่ยังเติบโตได้"
-              : "ประสบการณ์และความคิดที่อยากเล่าให้ฟัง"}
+              ? "Interests, lessons, and ideas still taking shape."
+              : "Experiences and thoughts worth sharing."}
           </p>
         </div>
         {route === "notes" && (
@@ -173,7 +173,7 @@ export default function Content({
             <form className="search" action="/notes">
               <Search size={18} aria-hidden="true" />
               <label className="sr-only" htmlFor="q">
-                ค้นหา Notes
+                Search notes
               </label>
               <input
                 id="q"
@@ -182,7 +182,7 @@ export default function Content({
                 defaultValue={q.q}
               />
               {selected && <input type="hidden" name="tag" value={selected} />}
-              <button>ค้นหา</button>
+              <button>Search</button>
             </form>
             <div className="filters">
               <a
@@ -219,8 +219,8 @@ export default function Content({
         ) : (
           <Empty>
             {query || selected
-              ? "ไม่พบบันทึกที่ตรงกับการค้นหา ลองเปลี่ยนคำค้นหรือเลือก All notes"
-              : "ยังไม่มีเนื้อหาที่เผยแพร่"}
+              ? "No matching notes. Try another search or select All notes."
+              : "Nothing published yet"}
           </Empty>
         )}
       </div>
@@ -249,7 +249,7 @@ export default function Content({
           <div className="hero-art">
             <img
               src="/images/notebook-collage.webp"
-              alt="ภาพคอลลาจสมุดบันทึก กาแฟ และชายฝั่ง"
+              alt="Collage of a notebook, coffee, and the coast"
               width="1200"
               height="900"
             />
@@ -257,22 +257,22 @@ export default function Content({
         </section>
         <section className="start-section">
           <h2>Start here</h2>
-          <p>รู้จักกันผ่านประสบการณ์ ผลงาน และสิ่งที่ผมกำลังเรียนรู้</p>
+          <p>Get to know me through my experience, projects, and what I’m learning.</p>
           <ResourceCards
             items={[
               {
                 title: "About & Resume",
-                description: "เรื่องราว ประสบการณ์ และทักษะของผม",
+                description: "My story, experience, and skills",
                 href: "/about",
               },
               {
                 title: "Selected projects",
-                description: "สิ่งที่ลงมือทำ และเทคโนโลยีที่ใช้ในแต่ละงาน",
+                description: "What I’ve built and the technology behind it",
                 href: "/projects",
               },
               {
                 title: "Notes & ideas",
-                description: "คลังความสนใจ ความรู้ และไอเดียระหว่างทาง",
+                description: "A collection of interests, lessons, and ideas",
                 href: "/notes",
               },
             ]}
@@ -282,9 +282,9 @@ export default function Content({
           <div className="curiosity-column">
             <h2>Stay curious.</h2>
             <p>
-              เรื่องเล็ก ๆ ที่สนใจ
+              Small things that spark curiosity
               <br />
-              อาจเป็นจุดเริ่มต้นของสิ่งใหม่
+              can lead to something new.
             </p>
             {interests.length > 0 && <Tags tags={interests} />}
             <a className="text-link" href="/about#contact">
@@ -306,8 +306,8 @@ export default function Content({
               ) : (
                 <Empty>
                   {kind === "notes"
-                    ? "ยังไม่มี Notes ที่เผยแพร่"
-                    : "ยังไม่มีบทความที่เผยแพร่"}
+                    ? "No notes published yet"
+                    : "No blog posts published yet"}
                 </Empty>
               )}
             </div>

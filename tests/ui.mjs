@@ -9,9 +9,10 @@ const vite = await createServer({
 });
 
 try {
-  const [{ default: Content }, { defaultProfile }] = await Promise.all([
+  const [{ default: Content }, { defaultProfile }, { bulletEdit }] = await Promise.all([
     vite.ssrLoadModule("/src/pages/Content.tsx"),
     vite.ssrLoadModule("/src/lib/content.ts"),
+    vite.ssrLoadModule("/src/lib/bullet-list.ts"),
   ]);
   const profile = {
     ...defaultProfile,
@@ -21,7 +22,7 @@ try {
       { label: "Linkedin", url: "www.linkedin.com/in/borworn-kultumyotin-4b02b6328" },
     ],
     projects: [
-      { name: "Example", description: "Example project", role: "React, TypeScript", url: "" },
+      { name: "Example", description: "- First feature\n- Second feature", role: "React, TypeScript", url: "" },
     ],
   };
   const entries = [
@@ -60,7 +61,10 @@ try {
 
   const projects = render("projects");
   assert.match(projects, /Tech Stack · React, TypeScript/);
-  assert.doesNotMatch(projects, /บทบาท ·/);
+  assert.match(projects, /<ul><li>First feature<\/li><li>Second feature<\/li><\/ul>/);
+  assert.deepEqual(bulletEdit("", 0, 0, "-"), { value: "- ", caret: 2 });
+  assert.deepEqual(bulletEdit("- First", 7, 7, "Enter"), { value: "- First\n- ", caret: 10 });
+  assert.deepEqual(bulletEdit("- First\n- ", 10, 10, "Enter"), { value: "- First\n", caret: 8 });
 
   const notes = render("notes");
   assert.match(notes, /class="writing-preview"/);
@@ -76,7 +80,7 @@ try {
   assert.match(blog, /href="\/blog\/blog-1"/);
   assert.doesNotMatch(blog, /It&#x27;s About the Journey/);
 
-  console.log("PASS: all three contacts render; Tech Stack label; Notes and Blog previews.");
+  console.log("PASS: contacts, project bullets, Tech Stack, and writing previews.");
 } finally {
   await vite.close();
 }

@@ -11,7 +11,7 @@ export default function Login() {
   return (
     <main className="access">
       <span className="eyebrow">OWNER</span>
-      <h1>เข้าสู่ระบบเจ้าของเว็บไซต์</h1>
+      <h1>Sign in as site owner</h1>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -26,7 +26,7 @@ export default function Login() {
             setPassword("");
           } catch {
             setError(
-              "เข้าสู่ระบบไม่สำเร็จ กรุณาตรวจอีเมล รหัสผ่าน และการเชื่อมต่อ",
+              "Could not sign in. Check your email, password, and connection.",
             );
           } finally {
             setBusy(false);
@@ -34,7 +34,7 @@ export default function Login() {
         }}
       >
         <label className="field">
-          อีเมล
+          Email
           <Input
             type="email"
             autoComplete="username"
@@ -45,7 +45,7 @@ export default function Login() {
           />
         </label>
         <label className="field">
-          รหัสผ่าน
+          Password
           <Input
             type="password"
             autoComplete="current-password"
@@ -57,10 +57,10 @@ export default function Login() {
         </label>
         <p role="alert">{error}</p>
         <Button type="submit" disabled={busy}>
-          {busy ? "กำลังเข้าสู่ระบบ…" : "เข้าสู่ระบบ"}
+          {busy ? "Signing in…" : "Sign in"}
         </Button>
       </form>
-      <a href="/">กลับหน้าเว็บ</a>
+      <a href="/">Back to website</a>
     </main>
   );
 }

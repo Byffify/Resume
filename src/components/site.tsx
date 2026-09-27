@@ -16,7 +16,7 @@ export function Shell({
           {p.name.toLowerCase()}
           <span>.</span>
         </a>
-        <nav aria-label="เมนูหลัก">
+        <nav aria-label="Main navigation">
           {[
             ["/about", "About"],
             ["/about#resume", "Resume"],
