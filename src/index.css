@@ -231,11 +231,17 @@ fieldset {
   flex-wrap: wrap;
   margin-top: 26px;
 }
+.hero-art {
+  width: min(100%, 320px);
+  margin: 0 auto;
+}
 .hero-art img {
   display: block;
   width: 100%;
-  height: auto;
-  mix-blend-mode: multiply;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 30%;
+  border-radius: 16px;
 }
 .start-section {
   padding: 0 0 38px;
@@ -1208,12 +1214,8 @@ fieldset {
     font-size: 13px;
   }
   .hero-art {
-    max-width: 430px;
+    width: min(100%, 260px);
     margin: auto;
-  }
-  .home-hero .hero-art img {
-    max-height: 280px;
-    object-fit: contain;
   }
   .start-section {
     padding-bottom: 28px;

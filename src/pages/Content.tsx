@@ -93,23 +93,27 @@ export default function Content({
               <h2>Achievements &amp; Certificates</h2>
               {p.achievements.some((item) => item.title.trim()) ? (
                 <div className="resource-grid">
-                  {p.achievements.filter((item) => item.title.trim()).map((item, i) => (
-                    <article className="resource-card" key={i}>
-                      <h3>
-                        {safeUrl(item.url) ? (
-                          <a href={item.url} rel="noopener noreferrer">
-                            {item.title} ↗
-                          </a>
-                        ) : (
-                          item.title
-                        )}
-                      </h3>
-                      {item.detail && <p>{item.detail}</p>}
-                    </article>
-                  ))}
+                  {p.achievements
+                    .filter((item) => item.title.trim())
+                    .map((item, i) => (
+                      <article className="resource-card" key={i}>
+                        <h3>
+                          {safeUrl(item.url) ? (
+                            <a href={item.url} rel="noopener noreferrer">
+                              {item.title} ↗
+                            </a>
+                          ) : (
+                            item.title
+                          )}
+                        </h3>
+                        {item.detail && <p>{item.detail}</p>}
+                      </article>
+                    ))}
                 </div>
               ) : (
-                <p className="muted">Achievements and certificates will appear here.</p>
+                <p className="muted">
+                  Achievements and certificates will appear here.
+                </p>
               )}
             </section>
           </div>
@@ -138,7 +142,10 @@ export default function Content({
         <div className="page-heading">
           <span className="eyebrow">SELECTED WORK</span>
           <h1>Things I’ve built.</h1>
-          <p>Projects, the technology behind them, and what I learned along the way.</p>
+          <p>
+            Projects, the technology behind them, and what I learned along the
+            way.
+          </p>
         </div>
         {p.projects.length ? (
           <div className="resource-grid">
@@ -271,16 +278,19 @@ export default function Content({
           </div>
           <div className="hero-art">
             <img
-              src="/images/notebook-collage.webp"
-              alt="Collage of a notebook, coffee, and the coast"
-              width="1200"
-              height="900"
+              src="/images/Profile.jpg"
+              alt="Portrait of Borworn"
+              width="320"
+              height="400"
             />
           </div>
         </section>
         <section className="start-section">
           <h2>Start here</h2>
-          <p>Get to know me through my experience, projects, and what I’m learning.</p>
+          <p>
+            Get to know me through my experience, projects, and what I’m
+            learning.
+          </p>
           <ResourceCards
             items={[
               {
