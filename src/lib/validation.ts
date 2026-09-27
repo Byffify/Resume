@@ -27,4 +27,14 @@ export const profileSchema = z.object({
       }),
     )
     .max(100),
+  achievements: z
+    .array(
+      z.object({
+        title: z.string().max(200),
+        detail: z.string().max(500),
+        url: z.string().max(2000),
+      }),
+    )
+    .max(50)
+    .default([]),
 });

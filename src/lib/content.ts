@@ -18,6 +18,7 @@ export type Profile = {
   interests: string;
   contacts: { label: string; url: string }[];
   projects: { name: string; description: string; role: string; url: string }[];
+  achievements: { title: string; detail: string; url: string }[];
 };
 export const defaultProfile: Profile = {
   name: "Borworn",
@@ -29,6 +30,7 @@ export const defaultProfile: Profile = {
   interests: "",
   contacts: [],
   projects: [],
+  achievements: [],
 };
 export const date = (v: string | null) =>
   v

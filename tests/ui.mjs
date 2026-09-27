@@ -9,10 +9,11 @@ const vite = await createServer({
 });
 
 try {
-  const [{ default: Content }, { defaultProfile }, { bulletEdit }] = await Promise.all([
+  const [{ default: Content }, { defaultProfile }, { bulletEdit }, { profileSchema }] = await Promise.all([
     vite.ssrLoadModule("/src/pages/Content.tsx"),
     vite.ssrLoadModule("/src/lib/content.ts"),
     vite.ssrLoadModule("/src/lib/bullet-list.ts"),
+    vite.ssrLoadModule("/src/lib/validation.ts"),
   ]);
   const profile = {
     ...defaultProfile,
@@ -23,6 +24,9 @@ try {
     ],
     projects: [
       { name: "Example", description: "- First feature\n- Second feature", role: "React, TypeScript", url: "" },
+    ],
+    achievements: [
+      { title: "Example Certificate", detail: "Example Academy · 2026", url: "https://example.com/certificate" },
     ],
   };
   const entries = [
@@ -59,6 +63,13 @@ try {
   }
   assert.match(about, /href="https:\/\/www\.linkedin\.com\/in\/borworn-kultumyotin-4b02b6328"/);
 
+  const home = render("");
+  assert.match(home, /ACHIEVEMENTS &amp; CERTIFICATES/);
+  assert.match(home, /Example Certificate/);
+  assert.match(home, /Example Academy · 2026/);
+  assert.match(home, /href="https:\/\/example\.com\/certificate"/);
+  assert.deepEqual(profileSchema.parse({ ...profile, achievements: undefined }).achievements, []);
+
   const projects = render("projects");
   assert.match(projects, /Tech Stack · React, TypeScript/);
   assert.match(projects, /<ul><li>First feature<\/li><li>Second feature<\/li><\/ul>/);
@@ -80,7 +91,7 @@ try {
   assert.match(blog, /href="\/blog\/blog-1"/);
   assert.doesNotMatch(blog, /It&#x27;s About the Journey/);
 
-  console.log("PASS: contacts, project bullets, Tech Stack, and writing previews.");
+  console.log("PASS: contacts, achievements, project bullets, Tech Stack, and writing previews.");
 } finally {
   await vite.close();
 }

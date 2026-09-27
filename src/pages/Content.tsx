@@ -278,6 +278,29 @@ export default function Content({
             ]}
           />
         </section>
+        <section className="achievements-section">
+          <h2 className="eyebrow">ACHIEVEMENTS &amp; CERTIFICATES</h2>
+          {p.achievements.some((item) => item.title.trim()) ? (
+            <div className="resource-grid">
+              {p.achievements.filter((item) => item.title.trim()).map((item, i) => (
+                <article className="resource-card" key={i}>
+                  <h3>
+                    {safeUrl(item.url) ? (
+                      <a href={item.url} rel="noopener noreferrer">
+                        {item.title} ↗
+                      </a>
+                    ) : (
+                      item.title
+                    )}
+                  </h3>
+                  {item.detail && <p>{item.detail}</p>}
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="muted">Achievements and certificates will appear here.</p>
+          )}
+        </section>
         <section className="home-bottom">
           <div className="curiosity-column">
             <h2>Stay curious.</h2>

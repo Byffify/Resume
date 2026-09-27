@@ -116,6 +116,84 @@ export function ProfileForm({
             >
               + Add contact
             </Button>
+            <h2>Achievements &amp; Certificates</h2>
+            <p className="muted">Shown on the homepage</p>
+            {p.achievements.map((achievement, i) => (
+              <div className="project-edit" key={i}>
+                <label className="field">
+                  Title
+                  <Input
+                    value={achievement.title}
+                    maxLength={200}
+                    onChange={(e) =>
+                      onChange({
+                        ...p,
+                        achievements: p.achievements.map((x, j) =>
+                          i === j ? { ...x, title: e.target.value } : x,
+                        ),
+                      })
+                    }
+                  />
+                </label>
+                <label className="field">
+                  Issuer or year
+                  <Input
+                    value={achievement.detail}
+                    maxLength={500}
+                    onChange={(e) =>
+                      onChange({
+                        ...p,
+                        achievements: p.achievements.map((x, j) =>
+                          i === j ? { ...x, detail: e.target.value } : x,
+                        ),
+                      })
+                    }
+                  />
+                </label>
+                <label className="field">
+                  Certificate URL (optional)
+                  <Input
+                    value={achievement.url}
+                    maxLength={2000}
+                    onChange={(e) =>
+                      onChange({
+                        ...p,
+                        achievements: p.achievements.map((x, j) =>
+                          i === j ? { ...x, url: e.target.value } : x,
+                        ),
+                      })
+                    }
+                  />
+                </label>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() =>
+                    onChange({
+                      ...p,
+                      achievements: p.achievements.filter((_, j) => j !== i),
+                    })
+                  }
+                >
+                  Remove achievement
+                </Button>
+              </div>
+            ))}
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                onChange({
+                  ...p,
+                  achievements: [
+                    ...p.achievements,
+                    { title: "", detail: "", url: "" },
+                  ],
+                })
+              }
+            >
+              + Add achievement
+            </Button>
           </>
         ) : (
           <>
