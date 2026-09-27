@@ -62,12 +62,14 @@ try {
     assert.match(about, new RegExp(contact.label));
   }
   assert.match(about, /href="https:\/\/www\.linkedin\.com\/in\/borworn-kultumyotin-4b02b6328"/);
+  assert.match(about, /Achievements &amp; Certificates/);
+  assert.match(about, /Example Certificate/);
+  assert.match(about, /Example Academy · 2026/);
+  assert.match(about, /href="https:\/\/example\.com\/certificate"/);
 
   const home = render("");
-  assert.match(home, /ACHIEVEMENTS &amp; CERTIFICATES/);
-  assert.match(home, /Example Certificate/);
-  assert.match(home, /Example Academy · 2026/);
-  assert.match(home, /href="https:\/\/example\.com\/certificate"/);
+  assert.doesNotMatch(home, /Achievements &amp; Certificates/);
+  assert.doesNotMatch(home, /Example Certificate/);
   assert.deepEqual(profileSchema.parse({ ...profile, achievements: undefined }).achievements, []);
 
   const projects = render("projects");

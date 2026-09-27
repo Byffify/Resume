@@ -316,12 +316,6 @@ fieldset {
   margin: 4px 0;
   padding-left: 20px;
 }
-.achievements-section {
-  padding: 0 0 38px;
-}
-.achievements-section h2 {
-  margin-bottom: 16px;
-}
 .home-bottom {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr 1.2fr;

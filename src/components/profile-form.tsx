@@ -117,7 +117,7 @@ export function ProfileForm({
               + Add contact
             </Button>
             <h2>Achievements &amp; Certificates</h2>
-            <p className="muted">Shown on the homepage</p>
+            <p className="muted">Shown on your Resume page</p>
             {p.achievements.map((achievement, i) => (
               <div className="project-edit" key={i}>
                 <label className="field">
