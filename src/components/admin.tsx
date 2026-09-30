@@ -1,3 +1,4 @@
+import { Author, ProfileAvatar } from "./site";
 import { saveContent } from "../lib/store";
 import { SignOut } from "./sign-out";
 // Sidebar composition adapted from Watermelon UI Agndex. See WATERMELON-LICENSE.txt.
@@ -79,8 +80,8 @@ import {
 
 type Draft = Omit<Entry, "id" | "created" | "updated" | "published"> &
   Partial<Entry>;
-type View = "all" | "notes" | "blog" | "profile" | "projects";
-const fresh = (kind: "notes" | "blog" = "notes"): Draft => ({
+type View = "all" | "notes" | "archive" | "profile" | "projects";
+const fresh = (kind: "notes" | "archive" = "notes"): Draft => ({
   kind,
   title: "",
   body: "",
@@ -115,7 +116,7 @@ function OwnerNav({
               { id: "profile", label: "Resume", icon: FileUser },
               { id: "projects", label: "Projects", icon: Folder },
               { id: "notes", label: "Notes", icon: NotebookPen },
-              { id: "blog", label: "Blog", icon: Newspaper },
+              { id: "archive", label: "Archive", icon: Newspaper },
             ] as const
           ).map((n) => (
             <SidebarMenuItem key={n.id}>
@@ -207,7 +208,7 @@ export default function Admin({
     setMessage("");
   }
   function switchEntry(e?: Entry) {
-    setDraft(e || fresh(view === "blog" ? "blog" : "notes"));
+    setDraft(e || fresh(view === "archive" ? "archive" : "notes"));
     setTagText(e?.tags.join(", ") || "");
     setDirty(false);
     setPreview(false);
@@ -315,7 +316,7 @@ export default function Admin({
             </span>
           </div>
           <div className="owner-identity">
-            <span className="avatar-letter">{profile.name.charAt(0)}</span>
+            <ProfileAvatar />
             {profile.name}
           </div>
         </header>
@@ -341,11 +342,7 @@ export default function Admin({
             <div className="workspace-grid">
               <section className="library-panel">
                 <div className="workspace-heading">
-                  <h1>
-                    Write and share <br />
-                    what you’re learning.
-                  </h1>
-                  <p>Capture ideas, record what you learn, and tell your story.</p>
+                  <h1>Writing</h1>
                 </div>
                 <div className="writing-stats">
                   {counts.map((c, i) => (
@@ -371,7 +368,7 @@ export default function Admin({
                     <TabsList variant="line">
                       <TabsTrigger value="all">All</TabsTrigger>
                       <TabsTrigger value="notes">Notes</TabsTrigger>
-                      <TabsTrigger value="blog">Blog</TabsTrigger>
+                      <TabsTrigger value="archive">Archive</TabsTrigger>
                     </TabsList>
                   </Tabs>
                   <Button
@@ -380,7 +377,7 @@ export default function Admin({
                     disabled={busy}
                   >
                     <Plus />
-                    New note
+                    New post
                   </Button>
                 </div>
                 <div className="writing-table">
@@ -403,7 +400,7 @@ export default function Admin({
                             >
                               <strong>{e.title}</strong>
                               <span>
-                                {e.kind === "notes" ? "Note" : "Blog"}
+                                {e.kind === "notes" ? "Note" : "Archive"}
                                 {e.tags.length ? " · " + e.tags.join(", ") : ""}
                               </span>
                             </button>
@@ -424,7 +421,7 @@ export default function Admin({
                     <p className="blank">
                       {search
                         ? "No writing matches your search"
-                        : "Start with your first note"}
+                        : "Start with your first post"}
                     </p>
                   )}
                 </div>
@@ -479,7 +476,7 @@ export default function Admin({
                         value={draft.kind}
                         disabled={!!draft.id || busy}
                         onValueChange={(v) =>
-                          update({ kind: v as "notes" | "blog" })
+                          update({ kind: v as "notes" | "archive" })
                         }
                       >
                         <SelectTrigger
@@ -487,12 +484,12 @@ export default function Admin({
                           aria-label="Type"
                         >
                           <SelectValue>
-                            {draft.kind === "notes" ? "Note" : "Blog"}
+                            {draft.kind === "notes" ? "Note" : "Archive"}
                           </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="notes">Note</SelectItem>
-                          <SelectItem value="blog">Blog</SelectItem>
+                          <SelectItem value="archive">Archive</SelectItem>
                         </SelectContent>
                       </Select>
                     </label>
@@ -570,12 +567,7 @@ export default function Admin({
                     </div>
                     {preview ? (
                       <div className="editor-preview">
-                        <div className="author">
-                          <span className="avatar-letter">
-                            {profile.name.charAt(0)}
-                          </span>
-                          <strong>{profile.name}</strong>
-                        </div>
+                        <Author name={profile.name} body={draft.body} published={draft.status === "published" ? draft.published ?? null : null} />
                         <h2>{draft.title || "Untitled"}</h2>
                         <Markdown body={draft.body} />
                       </div>

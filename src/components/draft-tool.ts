@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { z } from "zod";
 const draftSchema = z
   .object({
-    kind: z.enum(["notes", "blog"]),
+    kind: z.enum(["notes", "archive"]),
     title: z.string().trim().min(1).max(200),
     body: z.string().max(100000),
     tags: z.array(z.string().trim().min(1).max(60)).max(30),
@@ -32,11 +32,11 @@ export function useDraftTool(stage: (input: Staged) => void) {
             name: "stage_writing_draft",
             title: "Prepare a writing draft",
             description:
-              "Stage a new Note or Blog in the owner editor for review. Does not save or publish. Rejects if the current draft has unsaved edits.",
+              "Stage a new Note or Archive post in the owner editor for review. Does not save or publish. Rejects if the current draft has unsaved edits.",
             inputSchema: {
               type: "object",
               properties: {
-                kind: { type: "string", enum: ["notes", "blog"] },
+                kind: { type: "string", enum: ["notes", "archive"] },
                 title: { type: "string", minLength: 1, maxLength: 200 },
                 body: { type: "string", maxLength: 100000 },
                 tags: {

@@ -1,7 +1,7 @@
 import { z } from "zod";
 export const entrySchema = z.object({
   id: z.string().uuid().optional(),
-  kind: z.enum(["notes", "blog"]),
+  kind: z.enum(["notes", "archive"]),
   title: z.string().trim().min(1).max(200),
   body: z.string().max(100000),
   tags: z.array(z.string().trim().min(1).max(60)).max(30),

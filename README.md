@@ -114,3 +114,16 @@ npm run preview
 
 อ้างอิง: https://supabase.com/docs/guides/database/postgres/row-level-security
 และ https://vercel.com/docs/frameworks/frontend/vite
+
+## Archive และการอัปเกรดจาก Blog
+
+Nav ใช้ About, Projects, Notes และ Archive โดย Resume อยู่ใน About ที่ /about#resume
+Archive เป็นโพสต์แยกจาก Notes สำหรับสรุปข่าว AI/Tech รายสัปดาห์ เขียนและเผยแพร่เองผ่าน Owner editor; ระบุช่วงสัปดาห์ในชื่อโพสต์ได้
+หน้ารวม Archive จัดกลุ่มตามเดือน/ปีของวันเผยแพร่ในเขตเวลา Asia/Bangkok
+Notes และ Archive แสดงรูป public/images/Profile.jpg ชื่อผู้เขียน วันเผยแพร่ และเวลาอ่านโดยประมาณ (200 คำต่อนาที รองรับไทย/อังกฤษ ขั้นต่ำ 1 นาที)
+
+สำหรับฐานข้อมูลเดิม ให้สำรองข้อมูลและรัน supabase/migrate-blog-to-archive.sql ใน Supabase SQL Editor ด้วยสิทธิ์ผู้ดูแล **ก่อน deploy frontend เวอร์ชันนี้** โดยทำในช่วงหยุดแก้ไขเนื้อหา
+Migration รันซ้ำได้ ย้าย Blog ทุกสถานะเป็น Archive โดยรักษา UUID, body, tags, status และ timestamps; ไม่ต้องรัน migration สำหรับฐานข้อมูลใหม่ที่ใช้ schema.sql เวอร์ชันนี้
+หลัง migration ให้ deploy frontend ต่อทันที: frontend เก่าจะไม่รู้จัก Archive ระหว่างรอยต่อ
+ลิงก์ /blog และ /blog/:id จะเปลี่ยนทางไป /archive และ /archive/:id พร้อม query/hash
+ตรวจ login, เปิด Archive เดิม, save draft, publish/unpublish และตรวจจากหน้าต่างไม่ระบุตัวตนหลัง deploy

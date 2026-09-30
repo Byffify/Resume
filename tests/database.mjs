@@ -25,6 +25,26 @@ try {
     new URL("../supabase/schema.sql", import.meta.url),
     "utf8",
   );
+  // Exercise the upgrade against the legacy Blog constraint and trigger.
+  await db.exec(schema.replace("kind in ('notes', 'archive')", "kind in ('notes', 'blog')"));
+  await db.exec("alter table entries disable trigger prepare_entry");
+  const legacy = (await db.query(
+    "insert into entries(kind,title,body,tags,status,created,published,updated) values ('blog','Weekly AI','Original body',array['AI'],'published','2025-01-01','2025-01-02','2025-01-03'), ('blog','Private weekly','Draft body',array['Tech'],'draft','2025-02-01',null,'2025-02-03'), ('notes','Keep note','Note body','{}','draft','2025-03-01',null,'2025-03-02') returning *"
+  )).rows;
+  await db.exec("alter table entries enable trigger prepare_entry");
+  const migration = await readFile(new URL("../supabase/migrate-blog-to-archive.sql", import.meta.url), "utf8");
+  await db.exec(migration);
+  await db.exec(migration);
+  for (const original of legacy) {
+    const migrated = (await db.query("select * from entries where id=$1", [original.id])).rows[0];
+    assert.deepEqual(migrated, {...original, kind: original.kind === "blog" ? "archive" : "notes"});
+  }
+  await as("anon");
+  assert.equal((await db.query("select * from entries")).rows.length, 1);
+  await as("postgres");
+  await assert.rejects(db.query("update entries set kind='notes' where id=$1", [legacy[0].id]));
+  await assert.rejects(db.query("insert into entries(kind,title) values ('blog','Removed')"));
+  await db.exec("delete from entries");
   await db.exec(schema);
   await db.exec(schema); // Setup must be safe to rerun.
   await db.query("insert into auth.users(id) values ($1), ($2)", [
@@ -70,7 +90,7 @@ try {
     ),
   );
   await assert.rejects(
-    db.query("update entries set kind = 'blog' where id = $1", [draft.id]),
+    db.query("update entries set kind = 'archive' where id = $1", [draft.id]),
   );
   await assert.rejects(
     db.query("update entries set id = $1 where id = $2", [stranger, draft.id]),

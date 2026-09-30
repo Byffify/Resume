@@ -42,10 +42,10 @@ try {
       published: "2026-09-26T00:00:00Z",
     },
     {
-      id: "blog-1",
-      kind: "blog",
-      title: "A blog story",
-      body: "First paragraph of the blog story.",
+      id: "archive-1",
+      kind: "archive",
+      title: "A archive story",
+      body: "First paragraph of the archive story.",
       tags: [],
       status: "published",
       created: "2026-09-26T00:00:00Z",
@@ -85,14 +85,47 @@ try {
   assert.match(notes, /It&#x27;s About the Journey, Not the Destination/);
   assert.match(notes, /the process than the end result/);
   assert.match(notes, /href="\/notes\/note-1"/);
-  assert.doesNotMatch(notes, /A blog story/);
+  assert.doesNotMatch(notes, /A archive story/);
 
-  const blog = render("blog");
-  assert.match(blog, /class="writing-preview"/);
-  assert.match(blog, /First paragraph of the blog story/);
-  assert.match(blog, /href="\/blog\/blog-1"/);
-  assert.doesNotMatch(blog, /It&#x27;s About the Journey/);
+  const archive = render("archive");
+  assert.match(archive, /class="writing-preview"/);
+  assert.match(archive, /First paragraph of the archive story/);
+  assert.match(archive, /href="\/archive\/archive-1"/);
+  assert.doesNotMatch(archive, /It&#x27;s About the Journey/);
 
+  const [{ readingMinutes, archiveGroups, legacyBlogUrl }, { ProfileAvatar, Author }] = await Promise.all([
+    vite.ssrLoadModule("/src/lib/writing.ts"), vite.ssrLoadModule("/src/components/site.tsx"),
+  ]);
+  assert.match(notes, /src="\/images\/Profile.jpg"/);
+  assert.match(notes, /dateTime="2026-09-26T00:00:00Z"/i);
+  assert.match(notes, /26 Sept 2026/);
+  assert.match(notes, /1 min read/);
+  assert.doesNotMatch(notes, /Notes &amp; thoughts|A place for small thoughts|>Resume<|>Blog</);
+  assert.match(about, /id="resume"/);
+  const detail = renderToStaticMarkup(React.createElement(Content, { path: ["notes", "note-1"], q: {}, data: { profile, entries } }));
+  assert.match(detail, /1 min read/);
+  assert.match(detail, /src="\/images\/Profile.jpg"/);
+  assert.match(archive, /September 2026/);
+  assert.equal(readingMinutes("word ".repeat(201)), 2);
+  assert.equal(readingMinutes("สวัสดีครับ วันนี้เรียนรู้เรื่องเทคโนโลยี"), 1);
+  assert.equal(readingMinutes(""), 1);
+  assert.equal(readingMinutes("word ".repeat(401)), 3);
+  assert.equal(readingMinutes("![photo](https://example.com/photo.jpg)"), 1);
+  assert.equal(legacyBlogUrl("/blog/archive-1", "?q=AI", "#sources"), "/archive/archive-1?q=AI#sources");
+  assert.equal(legacyBlogUrl("/blog", "?tag=AI"), "/archive?tag=AI");
+  assert.equal(legacyBlogUrl("/blog/too/many"), null);
+  const groups = archiveGroups([
+    { ...entries[1], id: "old", published: "2025-12-01T00:00:00Z" },
+    { ...entries[1], id: "boundary", published: "2026-09-30T18:00:00Z" },
+    entries[1],
+  ]);
+  assert.deepEqual(groups.map(([label]) => label), ["October 2026", "September 2026", "December 2025"]);
+  const avatar = ProfileAvatar();
+  const image = { style: {} };
+  avatar.props.onError({ currentTarget: image });
+  assert.equal(image.style.visibility, "hidden");
+  assert.equal(avatar.props.alt, "");
+  assert.match(renderToStaticMarkup(React.createElement(Author, {name: "Borworn", body: "draft", published: null})), /Draft/);
   console.log("PASS: contacts, achievements, project bullets, Tech Stack, and writing previews.");
 } finally {
   await vite.close();

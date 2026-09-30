@@ -1,9 +1,9 @@
 import { SignOut } from "../components/sign-out";
 import type { PageData } from "../App";
 import { Shell, Rows, Tags, Contacts, Empty, Author } from "@/components/site";
-import { ResourceCards } from "@/components/resource-cards";
 import { WritingPreviews } from "@/components/writing-previews";
 import { Markdown } from "@/components/markdown";
+import { archiveGroups } from "@/lib/writing";
 import { date, safeUrl } from "@/lib/content";
 import NotFound from "./NotFound";
 
@@ -20,7 +20,7 @@ export default function Content({
 }) {
   const route = path[0] || "";
   if (
-    !["", "about", "projects", "notes", "blog", "admin"].includes(route) ||
+    !["", "about", "projects", "notes", "archive", "admin"].includes(route) ||
     path.length > 2 ||
     (route === "admin" && path.length > 1)
   )
@@ -41,7 +41,7 @@ export default function Content({
   const p = data.profile;
   const active = "/" + route;
   if (path[1]) {
-    if (!["notes", "blog"].includes(route)) return <NotFound />;
+    if (!["notes", "archive"].includes(route)) return <NotFound />;
     const e = data.entries.find((e) => e.id === path[1]);
     if (!e || e.kind !== route) return <NotFound />;
     return (
@@ -51,13 +51,13 @@ export default function Content({
             ← {route === "notes" ? "All notes" : "All posts"}
           </a>
           <div className="post-paper">
-            <Author name={p.name} />
+            <Author name={p.name} body={e.body} published={e.published} />
             <h1>{e.title}</h1>
             <Markdown body={e.body} />
             <div className="post-end">
-              <Tags tags={e.tags} />
+              <Tags tags={e.tags} kind={e.kind} />
               <p className="meta">
-                Published {date(e.published)} · Updated {date(e.updated)}
+                Updated <time dateTime={e.updated}>{date(e.updated)}</time>
               </p>
             </div>
           </div>
@@ -74,9 +74,7 @@ export default function Content({
     content = (
       <div className="inner-page">
         <div className="page-heading">
-          <span className="eyebrow">A LITTLE ABOUT ME</span>
-          <h1>More than a resume.</h1>
-          <p>{p.intro}</p>
+          <h1>About</h1>
         </div>
         <div className="about-grid">
           <div>
@@ -140,12 +138,7 @@ export default function Content({
     content = (
       <div className="inner-page">
         <div className="page-heading">
-          <span className="eyebrow">SELECTED WORK</span>
-          <h1>Things I’ve built.</h1>
-          <p>
-            Projects, the technology behind them, and what I learned along the
-            way.
-          </p>
+          <h1>Projects</h1>
         </div>
         {p.projects.length ? (
           <div className="resource-grid">
@@ -170,7 +163,7 @@ export default function Content({
         )}
       </div>
     );
-  else if (route === "notes" || route === "blog") {
+  else if (route === "notes" || route === "archive") {
     const all = data.entries.filter((e) => e.kind === route);
     const tags = [...new Set(all.flatMap((e) => e.tags))];
     const query = (q.q || "").toLocaleLowerCase();
@@ -184,19 +177,7 @@ export default function Content({
     content = (
       <div className="inner-page">
         <div className="page-heading">
-          <span className="eyebrow">
-            {route === "notes" ? "THE NOTEBOOK" : "STORIES & PERSPECTIVES"}
-          </span>
-          <h1>
-            {route === "notes"
-              ? "A place for small thoughts."
-              : "A little more to the story."}
-          </h1>
-          <p>
-            {route === "notes"
-              ? "Interests, lessons, and ideas still taking shape."
-              : "Experiences and thoughts worth sharing."}
-          </p>
+          <h1>{route === "notes" ? "Notes" : "Archive"}</h1>
         </div>
         {route === "notes" && (
           <>
@@ -245,7 +226,16 @@ export default function Content({
           <span>Latest first</span>
         </div>
         {filtered.length ? (
-          <WritingPreviews entries={filtered} author={p.name} />
+          route === "archive" ? (
+            <div className="archive-groups">
+              {archiveGroups(filtered).map(([month, entries]) => (
+                <section className="archive-month" key={month}>
+                  <h2>{month}</h2>
+                  <WritingPreviews entries={entries} author={p.name} />
+                </section>
+              ))}
+            </div>
+          ) : <WritingPreviews entries={filtered} author={p.name} />
         ) : (
           <Empty>
             {query || selected
@@ -285,46 +275,15 @@ export default function Content({
             />
           </div>
         </section>
-        <section className="start-section">
-          <h2>Start here</h2>
-          <p>
-            Get to know me through my experience, projects, and what I’m
-            learning.
-          </p>
-          <ResourceCards
-            items={[
-              {
-                title: "About & Resume",
-                description: "My story, experience, and skills",
-                href: "/about",
-              },
-              {
-                title: "Selected projects",
-                description: "What I’ve built and the technology behind it",
-                href: "/projects",
-              },
-              {
-                title: "Notes & ideas",
-                description: "A collection of interests, lessons, and ideas",
-                href: "/notes",
-              },
-            ]}
-          />
-        </section>
         <section className="home-bottom">
           <div className="curiosity-column">
-            <h2>Stay curious.</h2>
-            <p>
-              Small things that spark curiosity
-              <br />
-              can lead to something new.
-            </p>
+            <h2>Interests</h2>
             {interests.length > 0 && <Tags tags={interests} />}
             <a className="text-link" href="/about#contact">
               Let’s connect <ArrowRight size={15} />
             </a>
           </div>
-          {(["notes", "blog"] as const).map((kind) => (
+          {(["notes", "archive"] as const).map((kind) => (
             <div key={kind} className="latest-column">
               <div className="section-title">
                 <h2>Latest {kind}</h2>
@@ -340,7 +299,7 @@ export default function Content({
                 <Empty>
                   {kind === "notes"
                     ? "No notes published yet"
-                    : "No blog posts published yet"}
+                    : "No archive posts published yet"}
                 </Empty>
               )}
             </div>

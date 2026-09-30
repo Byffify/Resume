@@ -1,6 +1,6 @@
 export type Entry = {
   id: string;
-  kind: "notes" | "blog";
+  kind: "notes" | "archive";
   title: string;
   body: string;
   tags: string[];

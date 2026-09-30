@@ -1,12 +1,9 @@
 import type { Entry } from "@/lib/content";
+import { Author } from "./site";
+import { plainText } from "@/lib/writing";
 
 function excerpt(body: string) {
-  const text = body
-    .replace(/```[\s\S]*?```/g, " ")
-    .replace(/!?\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[#*`>_~]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  const text = plainText(body);
   return text.length > 220 ? `${text.slice(0, 220).trimEnd()}…` : text;
 }
 
@@ -21,12 +18,7 @@ export function WritingPreviews({
     <div className="writing-previews">
       {entries.map((entry) => (
         <article className="writing-preview" key={entry.id}>
-          <div className="author">
-            <span className="avatar-letter" aria-hidden="true">
-              {author.charAt(0)}
-            </span>
-            <strong>{author}</strong>
-          </div>
+          <Author name={author} body={entry.body} published={entry.published} />
           <h2>
             <a href={`/${entry.kind}/${entry.id}`}>{entry.title}</a>
           </h2>

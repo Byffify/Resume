@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { legacyBlogUrl } from "./lib/writing";
 import Content from "./pages/Content";
 import ErrorPage from "./pages/ErrorPage";
 import Login from "./pages/Login";
@@ -19,6 +20,11 @@ export default function App() {
   const path = window.location.pathname.split("/").filter(Boolean);
   const q = Object.fromEntries(new URLSearchParams(window.location.search));
   const admin = path.length === 1 && path[0] === "admin";
+
+  const legacyUrl = legacyBlogUrl(window.location.pathname, window.location.search, window.location.hash);
+  useEffect(() => {
+    if (legacyUrl) window.location.replace(legacyUrl);
+  }, [legacyUrl]);
 
   useEffect(() => {
     if (!supabase) return;
@@ -66,6 +72,7 @@ export default function App() {
     }
   }, [data]);
 
+  if (legacyUrl) return null;
   if (!supabase)
     return (
       <main className="access">

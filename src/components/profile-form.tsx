@@ -48,8 +48,8 @@ export function ProfileForm({
       <fieldset disabled={busy}>
         {view === "profile" ? (
           <>
-            <h1>Tell your story.</h1>
-            <p className="muted">Information shown on your About and Resume pages</p>
+            <h1>About</h1>
+            <p className="muted">Information shown on your About page</p>
             {field("name", "Display name")}
             {field("intro", "Short introduction")}
             {field("about", "About you", true)}
@@ -117,7 +117,7 @@ export function ProfileForm({
               + Add contact
             </Button>
             <h2>Achievements &amp; Certificates</h2>
-            <p className="muted">Shown on your Resume page</p>
+            <p className="muted">Shown on your About page</p>
             {p.achievements.map((achievement, i) => (
               <div className="project-edit" key={i}>
                 <label className="field">
@@ -197,8 +197,7 @@ export function ProfileForm({
           </>
         ) : (
           <>
-            <h1>Selected projects.</h1>
-            <p className="muted">Projects you’d like to share</p>
+            <h1>Projects</h1>
             {p.projects.map((project, i) => (
               <div className="project-edit" key={i}>
                 {(

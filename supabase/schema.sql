@@ -62,7 +62,7 @@ create table if not exists public.site_profile (
 );
 create table if not exists public.entries (
   id uuid primary key default gen_random_uuid(),
-  kind text not null check (kind in ('notes', 'blog')),
+  kind text not null check (kind in ('notes', 'archive')),
   title text not null check (char_length(btrim(title)) between 1 and 200),
   body text not null default '' check (char_length(body) <= 100000),
   tags text[] not null default '{}' check (cardinality(tags) <= 30),

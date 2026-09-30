@@ -1,4 +1,5 @@
 import { Entry, Profile, date, contactUrl } from "@/lib/content";
+import { readingMinutes } from "@/lib/writing";
 import { ArrowRight, FileText, NotebookPen } from "lucide-react";
 export function Shell({
   profile: p,
@@ -19,10 +20,9 @@ export function Shell({
         <nav aria-label="Main navigation">
           {[
             ["/about", "About"],
-            ["/about#resume", "Resume"],
             ["/projects", "Projects"],
             ["/notes", "Notes"],
-            ["/blog", "Blog"],
+            ["/archive", "Archive"],
           ].map(([url, label]) => (
             <a
               aria-current={active === url ? "page" : undefined}
@@ -45,18 +45,18 @@ export function Shell({
         <div>
           <a href="/about">About</a>
           <a href="/notes">Notes</a>
-          <a href="/blog">Blog</a>
+          <a href="/archive">Archive</a>
         </div>
         <a href="/admin">Owner</a>
       </footer>
     </div>
   );
 }
-export function Tags({ tags }: { tags: string[] }) {
+export function Tags({ tags, kind = "notes" }: { tags: string[]; kind?: Entry["kind"] }) {
   return (
     <div className="tags">
       {tags.map((t) => (
-        <a key={t} href={"/notes?tag=" + encodeURIComponent(t)}>
+        <a key={t} href={`/${kind}?tag=${encodeURIComponent(t)}`}>
           {t}
         </a>
       ))}
@@ -99,16 +99,16 @@ export function Contacts({ profile: p }: { profile: Profile }) {
 export function Empty({ children }: { children: React.ReactNode }) {
   return <div className="blank">{children}</div>;
 }
-export function Author({ name }: { name: string }) {
-  return (
-    <div className="author">
-      <span className="avatar-letter" aria-hidden="true">
-        {name.charAt(0)}
-      </span>
-      <div>
-        <strong>{name}</strong>
-        <span>Notes & thoughts</span>
-      </div>
-    </div>
-  );
+export function ProfileAvatar() {
+  return <img className="profile-avatar" src="/images/Profile.jpg" alt="" width="48" height="48"
+    onError={(event) => { event.currentTarget.style.visibility = "hidden"; }} />;
+}
+export function Author({ name, body, published }: { name: string; body: string; published: string | null }) {
+  return <div className="author">
+    <ProfileAvatar />
+    <div><strong>{name}</strong><span>
+      {published ? <time dateTime={published}>{date(published)}</time> : "Draft"}
+      {" · "}{readingMinutes(body)} min read
+    </span></div>
+  </div>;
 }
