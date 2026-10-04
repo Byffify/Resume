@@ -10,7 +10,6 @@ import { useDraftTool } from "./draft-tool";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -295,6 +294,7 @@ export default function Admin({
       ).length,
     },
   ];
+  const insertCaption = caption.replace(/[[\]]/g, "").trim();
   return (
     <SidebarProvider
       className="owner-app"
@@ -364,13 +364,26 @@ export default function Admin({
                   />
                 </label>
                 <div className="library-controls">
-                  <Tabs value={view} onValueChange={(v) => setView(v as View)}>
-                    <TabsList variant="line">
-                      <TabsTrigger value="all">All</TabsTrigger>
-                      <TabsTrigger value="notes">Notes</TabsTrigger>
-                      <TabsTrigger value="archive">Archive</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
+                  <div className="library-filters" role="group" aria-label="Filter writing by type">
+                    {([
+                      ["all", "All"],
+                      ["notes", "Notes"],
+                      ["archive", "Archive"],
+                    ] as const).map(([value, label]) => (
+                      <Button
+                        key={value}
+                        type="button"
+                        variant="ghost"
+                        className="library-filter"
+                        aria-pressed={view === value}
+                        aria-controls="writing-library"
+                        disabled={busy}
+                        onClick={() => setView(value)}
+                      >
+                        {label}
+                      </Button>
+                    ))}
+                  </div>
                   <Button
                     variant="outline"
                     onClick={() => edit()}
@@ -380,7 +393,7 @@ export default function Admin({
                     New post
                   </Button>
                 </div>
-                <div className="writing-table">
+                <div className="writing-table" id="writing-library" role="region" aria-label="Writing library">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -643,13 +656,14 @@ export default function Admin({
             </DialogTitle>
             <DialogDescription>
               {insert === "image"
-                ? "Enter a publicly accessible HTTPS image URL"
+                ? "Describe the image and enter a publicly accessible HTTPS image URL"
                 : "Enter the link text and URL"}
             </DialogDescription>
           </DialogHeader>
           <label className="field">
             {insert === "image" ? "Image description" : "Link text"}
             <Input
+              required
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
             />
@@ -664,10 +678,11 @@ export default function Admin({
           </label>
           <DialogFooter>
             <Button
-              disabled={!safeUrl(url, insert === "image")}
+              disabled={!safeUrl(url, insert === "image") || !insertCaption}
               onClick={() => {
+                if (!insertCaption || !safeUrl(url, insert === "image")) return;
                 markup(
-                  `${insert === "image" ? "!" : ""}[${caption.replace(/[[\]]/g, "")}](${url.replace(/\)/g, "%29")})`,
+                  `${insert === "image" ? "!" : ""}[${insertCaption}](${url.replace(/\)/g, "%29")})`,
                 );
                 setInsert(null);
               }}

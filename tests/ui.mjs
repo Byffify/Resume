@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createServer } from "vite";
@@ -126,6 +127,53 @@ try {
   assert.equal(image.style.visibility, "hidden");
   assert.equal(avatar.props.alt, "");
   assert.match(renderToStaticMarkup(React.createElement(Author, {name: "Borworn", body: "draft", published: null})), /Draft/);
+  const [{ default: Admin }, { Markdown }] = await Promise.all([
+    vite.ssrLoadModule("/src/components/admin.tsx"),
+    vite.ssrLoadModule("/src/components/markdown.tsx"),
+  ]);
+  const owner = renderToStaticMarkup(React.createElement(Admin, {
+    initialProfile: profile, initialEntries: entries,
+  }));
+  assert.doesNotMatch(owner, /role="tab"/);
+  assert.match(owner, /role="group" aria-label="Filter writing by type"/);
+  assert.equal((owner.match(/aria-pressed="true"/g) || []).length, 1);
+  assert.equal((owner.match(/aria-pressed="false"/g) || []).length, 2);
+  assert.match(owner, /id="writing-library" role="region" aria-label="Writing library"/);
+  for (const [, id] of owner.matchAll(/aria-controls="([^"]+)"/g)) {
+    assert.ok(owner.includes(`id="${id}"`), `Missing controlled region: ${id}`);
+  }
+  const markdown = (body) => renderToStaticMarkup(React.createElement(Markdown, { body }));
+  for (const caption of ["", " ", "\u2003"]) {
+    assert.match(markdown(`[${caption}](https://example.com)`), />https:\/\/example.com<\/a>/);
+  }
+  assert.match(markdown("[Read more](https://example.com)"), />Read more<\/a>/);
+  assert.doesNotMatch(markdown("[](javascript:alert)"), /<a /);
+  assert.match(markdown("![Portrait](https://example.com/photo.jpg)"), /alt="Portrait"/);
+  const css = await readFile(new URL("../src/index.css", import.meta.url), "utf8");
+  const tokens = Object.fromEntries([...css.matchAll(/--([\w-]+):\s*([^;]+);/g)]
+    .map(([, name, value]) => [name, value.trim()]));
+  const resolveColor = (value) => value.startsWith("var(")
+    ? resolveColor(tokens[value.slice(6, -1)]) : value;
+  const luminance = (color) => resolveColor(color).slice(1).match(/../g)
+    .map((channel) => parseInt(channel, 16) / 255)
+    .map((channel) => channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4)
+    .reduce((sum, channel, i) => sum + channel * [0.2126, 0.7152, 0.0722][i], 0);
+  for (const [foreground, background, minimum] of [
+    [tokens["muted-foreground"], tokens.background, 4.5],
+    [tokens["muted-foreground"], "#f6f4ee", 4.5],
+    [tokens["status-draft"], "#fff9f3", 4.5],
+    ["#ffffff", tokens.publish, 4.5],
+    [tokens["accent-foreground"], tokens.accent, 4.5],
+    [tokens["sidebar-accent-foreground"], tokens["sidebar-accent"], 4.5],
+    [tokens.ring, "#ffffff", 3],
+    [tokens.ring, "#fffdfa", 3],
+  ]) {
+    const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+    assert.ok((values[0] + 0.05) / (values[1] + 0.05) >= minimum,
+      `Insufficient contrast: ${foreground} on ${background}`);
+  }
+  console.log("PASS: named writing filters with valid control relationships; readable links including empty and whitespace captions.");
+  console.log("PASS: secondary text, publication states, accent text, and field focus contrast.");
   console.log("PASS: contacts, achievements, project bullets, Tech Stack, and writing previews.");
 } finally {
   await vite.close();

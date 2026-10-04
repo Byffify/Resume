@@ -12,7 +12,7 @@ function inline(s: string): React.ReactNode[] {
           <img key={i} src={url} alt={m[2]} loading="lazy" />
         ) : (
           <a key={i} href={url} rel="noopener noreferrer">
-            {m[2]}
+            {m[2].trim() || url}
           </a>
         );
       }
