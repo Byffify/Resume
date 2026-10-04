@@ -147,7 +147,7 @@ export default function Content({
           <div className="resource-grid">
             {p.projects.map((x, i) => (
               <article className="resource-card project" key={i}>
-                <h3>
+                <h2>
                   {safeUrl(x.url) ? (
                     <a href={x.url} rel="noopener noreferrer">
                       {x.name} ↗
@@ -155,7 +155,7 @@ export default function Content({
                   ) : (
                     x.name
                   )}
-                </h3>
+                </h2>
                 <Markdown body={x.description} />
                 <p className="meta">Tech Stack · {x.role}</p>
               </article>
@@ -234,7 +234,7 @@ export default function Content({
               {archiveGroups(filtered).map(([month, entries]) => (
                 <section className="archive-month" key={month}>
                   <h2>{month}</h2>
-                  <WritingPreviews entries={entries} author={p.name} />
+                  <WritingPreviews entries={entries} author={p.name} headingLevel={3} />
                 </section>
               ))}
             </div>
@@ -269,7 +269,7 @@ export default function Content({
             <p>{p.intro}</p>
             <div className="hero-actions">
               <a className="button-link" href="/about">
-                Read my story <ArrowRight size={18} />
+                About &amp; experience <ArrowRight size={18} />
               </a>
               <a className="button-link outline" href="/notes">
                 Explore notes <ArrowRight size={18} />

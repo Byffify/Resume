@@ -33,6 +33,8 @@
   --link: #426cce;
   --status-draft: #9f4c2b;
   --publish: #b54825;
+  --text-caption: 0.875rem;
+  --space-section: 2rem;
   --serif: Georgia, "Times New Roman", "Leelawadee UI", serif;
 }
 @theme inline {
@@ -128,7 +130,7 @@ fieldset {
 }
 .meta,
 .card-meta {
-  font-size: 12px;
+  font-size: var(--text-caption);
   color: var(--muted-foreground);
 }
 .eyebrow {
@@ -391,7 +393,7 @@ fieldset {
   color: #7f6d53;
 }
 .entry-row time {
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 .blank {
@@ -531,19 +533,21 @@ fieldset {
 .writing-preview:first-child {
   padding-top: 10px;
 }
-.writing-preview h2 {
-  margin: 24px 0 16px;
+.writing-preview h2,
+.writing-preview h3 {
+  margin: 12px 0 8px;
   font-size: clamp(21px, 2.6vw, 26px);
   font-weight: 400;
   line-height: 1.45;
 }
-.writing-preview h2 a:hover {
+.writing-preview h2 a:hover,
+.writing-preview h3 a:hover {
   color: var(--link);
 }
 .writing-preview p {
   color: #504e47;
   font-size: 16px;
-  line-height: 1.9;
+  line-height: 1.75;
   overflow-wrap: anywhere;
 }
 .section-label {
@@ -598,7 +602,7 @@ fieldset {
 }
 .prose {
   font-size: 18px;
-  line-height: 1.95;
+  line-height: 1.8;
   overflow-wrap: anywhere;
 }
 .prose p {
@@ -1375,6 +1379,72 @@ fieldset {
 
 .archive-month + .archive-month { margin-top: 40px; }
 .archive-month > h2 { font-size: 20px; margin-bottom: 16px; }
+
+.preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  color: var(--muted-foreground);
+  font-size: var(--text-caption);
+}
+.preview-meta > span {
+  overflow-wrap: anywhere;
+}
+.project h2 {
+  font-size: clamp(20px, 2vw, 24px);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--link);
+  overflow-wrap: anywhere;
+  margin-bottom: 12px;
+}
+.project .prose,
+.project .prose p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--muted-foreground);
+}
+.section-title h2 {
+  font-size: 18px;
+}
+.section-title > a,
+.author div > span,
+.section-label,
+.site-footer {
+  font-size: var(--text-caption);
+}
+.writing-table th,
+.date-cell,
+.status-badge,
+.entry-select span,
+.editor-footnote {
+  font-size: 12px;
+}
+.entry-select strong {
+  font-size: 14px;
+}
+.writing-preview {
+  padding-block: 24px;
+}
+.page-heading {
+  padding-block: 48px 24px;
+}
+.page-heading h1 {
+  margin-block: 0;
+}
+.about-grid > div > .prose,
+.reading .prose {
+  max-width: 68ch;
+}
+.post-end,
+.pagination {
+  margin-top: var(--space-section);
+}
+@media (max-width: 700px) {
+  .page-heading {
+    padding-block: 32px 24px;
+  }
+}
 
 /* Reflow long content and keep standalone controls comfortable on touch. */
 .brand,

@@ -97,7 +97,8 @@ try {
   const [{ readingMinutes, archiveGroups, legacyBlogUrl }, { ProfileAvatar, Author }] = await Promise.all([
     vite.ssrLoadModule("/src/lib/writing.ts"), vite.ssrLoadModule("/src/components/site.tsx"),
   ]);
-  assert.match(notes, /src="\/images\/Profile.jpg"/);
+  assert.match(notes, /class="preview-meta"/);
+  assert.doesNotMatch(notes, /class="profile-avatar"/);
   assert.match(notes, /dateTime="2026-09-26T00:00:00Z"/i);
   assert.match(notes, /26 Sept 2026/);
   assert.match(notes, /1 min read/);
@@ -107,6 +108,8 @@ try {
   assert.match(detail, /1 min read/);
   assert.match(detail, /src="\/images\/Profile.jpg"/);
   assert.match(archive, /September 2026/);
+  assert.match(archive, /<h3><a href="\/archive\/archive-1"/);
+  assert.match(projects, /<h2>Example<\/h2>/);
   assert.equal(readingMinutes("word ".repeat(201)), 2);
   assert.equal(readingMinutes("สวัสดีครับ วันนี้เรียนรู้เรื่องเทคโนโลยี"), 1);
   assert.equal(readingMinutes(""), 1);
