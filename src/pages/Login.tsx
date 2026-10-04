@@ -12,6 +12,7 @@ export default function Login() {
     <main className="access">
       <span className="eyebrow">OWNER</span>
       <h1>Sign in as site owner</h1>
+      <p>Manage your profile, projects, and writing.</p>
       <form
         onSubmit={async (event) => {
           event.preventDefault();
@@ -55,12 +56,12 @@ export default function Login() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-        <p role="alert">{error}</p>
+        {error && <p className="access-error" role="alert">{error}</p>}
         <Button type="submit" disabled={busy}>
           {busy ? "Signing in…" : "Sign in"}
         </Button>
       </form>
-      <a href="/">Back to website</a>
+      <div className="access-actions"><a href="/">Back to website</a></div>
     </main>
   );
 }

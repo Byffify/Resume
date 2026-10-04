@@ -74,8 +74,38 @@ try {
   assert.deepEqual(profileSchema.parse({ ...profile, achievements: undefined }).achievements, []);
 
   const projects = render("projects");
-  assert.match(projects, /Tech Stack · React, TypeScript/);
+  assert.match(projects, /<h3>Tech Stack<\/h3><p>React, TypeScript<\/p>/);
   assert.match(projects, /<ul><li>First feature<\/li><li>Second feature<\/li><\/ul>/);
+  const enriched = {
+    ...profile, interests: "Investment, Case Competition", skills: "  ",
+    projects: [{ name: "Reservation system", role: "React", url: "", description:
+      "- Owned course reservation (PBI11) and study plan declaration (PBI7) end-to-end, building accessible selection flows\n- Added regression tests" }],
+  };
+  const renderEnriched = (path) => renderToStaticMarkup(React.createElement(Content, {
+    path: [path], q: {}, data: { profile: enriched, entries },
+  }));
+  for (const path of ["", "about"]) {
+    const page = renderEnriched(path);
+    assert.match(page, /Case Competition/);
+    assert.doesNotMatch(page, /href="\/notes\?tag=Case%20Competition"/);
+  }
+  assert.doesNotMatch(renderEnriched("about"), />Skills<|No skills added yet/);
+  const withSkills = renderToStaticMarkup(React.createElement(Content, {
+    path: ["about"], q: {}, data: { profile: { ...enriched, skills: "Testing" }, entries },
+  }));
+  assert.match(withSkills, />Skills<\/h2>/);
+  assert.match(withSkills, /Testing/);
+  const projectPage = renderEnriched("projects");
+  assert.doesNotMatch(projectPage, /PBI11|PBI7/);
+  assert.match(projectPage, /Added regression tests/);
+  assert.match(projectPage, /<details class="project-details"><summary>/);
+  assert.ok(enriched.projects[0].description.includes("PBI11"), "Public presentation must not modify owner content");
+  const emptyArchive = renderToStaticMarkup(React.createElement(Content, {
+    path: ["archive"], q: {}, data: { profile, entries: [] },
+  }));
+  assert.match(emptyArchive, /Weekly AI and tech roundups/);
+  assert.match(emptyArchive, /No roundups published yet/);
+  assert.match(emptyArchive, /href="\/notes">explore Notes<\/a>/);
   assert.deepEqual(bulletEdit("", 0, 0, "-"), { value: "- ", caret: 2 });
   assert.deepEqual(bulletEdit("- First", 7, 7, "Enter"), { value: "- First\n- ", caret: 10 });
   assert.deepEqual(bulletEdit("- First\n- ", 10, 10, "Enter"), { value: "- First\n", caret: 8 });
@@ -118,6 +148,27 @@ try {
   const detail = renderToStaticMarkup(React.createElement(Content, { path: ["notes", "note-1"], q: {}, data: { profile, entries } }));
   assert.match(detail, /1 min read/);
   assert.match(detail, /src="\/images\/Profile.jpg"/);
+  assert.equal((detail.match(/href="\/notes">← All notes<\/a>/g) || []).length, 2);
+  const singleNote = renderToStaticMarkup(React.createElement(Content, {
+    path: ["notes"], q: {}, data: { profile, entries: [entries[0]] },
+  }));
+  assert.match(singleNote, /<span>1 note<\/span>/);
+  const [{ default: Login }, { default: ErrorPage }, { default: NotFound }, { ProfileForm }] = await Promise.all([
+    vite.ssrLoadModule("/src/pages/Login.tsx"),
+    vite.ssrLoadModule("/src/pages/ErrorPage.tsx"),
+    vite.ssrLoadModule("/src/pages/NotFound.tsx"),
+    vite.ssrLoadModule("/src/components/profile-form.tsx"),
+  ]);
+  const login = renderToStaticMarkup(React.createElement(Login));
+  assert.doesNotMatch(login, /role="alert"/);
+  for (const page of [Login, ErrorPage, NotFound]) {
+    assert.match(renderToStaticMarkup(React.createElement(page, { reset: () => {} })), /href="\/">Back to website/);
+  }
+  const profileForm = renderToStaticMarkup(React.createElement(ProfileForm, {
+    profile, onChange: () => {}, save: () => {}, busy: false, view: "profile",
+  }));
+  assert.match(profileForm, /aria-label="Remove contact: Instagram"/);
+  assert.match(profileForm, /aria-label="Remove achievement: Example Certificate"/);
   assert.match(archive, /September 2026/);
   assert.match(archive, /<h3><a href="\/archive\/archive-1"/);
   assert.match(projects, /<h2>Example<\/h2>/);

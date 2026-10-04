@@ -55,9 +55,10 @@ export function ProfileForm({
             {field("about", "About you", true)}
             {field("experience", "Experience (supports Markdown)", true)}
             {field("skills", "Skills", true)}
+            <p className="muted">Leave Skills blank to hide this section on your public About page.</p>
             {field(
               "interests",
-              "Interests (comma-separated; use the same names as your Notes tags)",
+              "Interests (comma-separated)",
             )}
             <h2>Get in touch</h2>
             {p.contacts.map((c, i) => (
@@ -93,6 +94,7 @@ export function ProfileForm({
                 <Button
                   type="button"
                   variant="ghost"
+                  aria-label={`Remove contact: ${c.label.trim() || i + 1}`}
                   onClick={() =>
                     onChange({
                       ...p,
@@ -168,6 +170,7 @@ export function ProfileForm({
                 <Button
                   type="button"
                   variant="ghost"
+                  aria-label={`Remove achievement: ${achievement.title.trim() || i + 1}`}
                   onClick={() =>
                     onChange({
                       ...p,
@@ -241,6 +244,7 @@ export function ProfileForm({
                 <Button
                   type="button"
                   variant="ghost"
+                  aria-label={`Remove project: ${project.name.trim() || i + 1}`}
                   onClick={() =>
                     onChange({
                       ...p,

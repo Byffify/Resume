@@ -64,12 +64,17 @@ export function Tags({ tags, kind = "notes" }: { tags: string[]; kind?: Entry["k
     </div>
   );
 }
+export function Interests({ items }: { items: string[] }) {
+  return <ul className="tags interest-tags">
+    {[...new Set(items)].map((item) => <li key={item}><span>{item}</span></li>)}
+  </ul>;
+}
 export function Rows({ entries }: { entries: Entry[] }) {
   return (
     <div className="entry-list">
       {entries.map((e) => (
         <article className="entry-row" key={e.id}>
-          <span className={"entry-icon " + e.kind}>
+          <span className={"entry-icon " + e.kind} aria-hidden="true">
             {e.kind === "notes" ? (
               <NotebookPen size={17} />
             ) : (
@@ -77,7 +82,7 @@ export function Rows({ entries }: { entries: Entry[] }) {
             )}
           </span>
           <a href={`/${e.kind}/${e.id}`}>{e.title}</a>
-          <time className="meta">{date(e.published)}</time>
+          <time className="meta" dateTime={e.published ?? undefined}>{date(e.published)}</time>
         </article>
       ))}
     </div>

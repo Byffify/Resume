@@ -10,3 +10,7 @@ outputs/
 *.tsbuildinfo
 npm-debug.log*
 .DS_Store
+.npm-cache/
+.claude/settings.local.json
+.codex/hooks.json
+.impeccable/critique/

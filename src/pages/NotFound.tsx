@@ -4,7 +4,10 @@ export default function NotFound() {
       <span className="eyebrow">404 / NOT FOUND</span>
       <h1>Page not found</h1>
       <p>This page may not be published, or it may have been removed.</p>
-      <a href="/notes">Back to notes</a>
+      <div className="access-actions">
+        <a className="button-link" href="/">Back to website</a>
+        <a href="/notes">Explore notes</a>
+      </div>
     </main>
   );
 }

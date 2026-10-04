@@ -1,0 +1,780 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T15:19:02.099Z",
+  "title": "Design System: Borworn",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Paper / กระดาษ",
+        "tonalRamp": [
+          "oklch(15.00% 0.00410 91.45)",
+          "oklch(26.43% 0.00410 91.45)",
+          "oklch(37.86% 0.00410 91.45)",
+          "oklch(49.29% 0.00410 91.45)",
+          "oklch(60.71% 0.00410 91.45)",
+          "oklch(72.14% 0.00410 91.45)",
+          "oklch(83.57% 0.00410 91.45)",
+          "oklch(95.00% 0.00410 91.45)"
+        ]
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Charcoal / ถ่าน",
+        "tonalRamp": [
+          "oklch(15.00% 0.00571 91.59)",
+          "oklch(26.43% 0.00571 91.59)",
+          "oklch(37.86% 0.00571 91.59)",
+          "oklch(49.29% 0.00571 91.59)",
+          "oklch(60.71% 0.00571 91.59)",
+          "oklch(72.14% 0.00571 91.59)",
+          "oklch(83.57% 0.00571 91.59)",
+          "oklch(95.00% 0.00571 91.59)"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Card",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 0.00)",
+          "oklch(26.43% 0.00000 0.00)",
+          "oklch(37.86% 0.00000 0.00)",
+          "oklch(49.29% 0.00000 0.00)",
+          "oklch(60.71% 0.00000 0.00)",
+          "oklch(72.14% 0.00000 0.00)",
+          "oklch(83.57% 0.00000 0.00)",
+          "oklch(95.00% 0.00000 0.00)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Charcoal / ถ่าน",
+        "tonalRamp": [
+          "oklch(15.00% 0.00571 91.59)",
+          "oklch(26.43% 0.00571 91.59)",
+          "oklch(37.86% 0.00571 91.59)",
+          "oklch(49.29% 0.00571 91.59)",
+          "oklch(60.71% 0.00571 91.59)",
+          "oklch(72.14% 0.00571 91.59)",
+          "oklch(83.57% 0.00571 91.59)",
+          "oklch(95.00% 0.00571 91.59)"
+        ]
+      },
+      "primary-foreground": {
+        "role": "neutral",
+        "displayName": "Primary Foreground",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 0.00)",
+          "oklch(26.43% 0.00000 0.00)",
+          "oklch(37.86% 0.00000 0.00)",
+          "oklch(49.29% 0.00000 0.00)",
+          "oklch(60.71% 0.00000 0.00)",
+          "oklch(72.14% 0.00000 0.00)",
+          "oklch(83.57% 0.00000 0.00)",
+          "oklch(95.00% 0.00000 0.00)"
+        ]
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Secondary",
+        "tonalRamp": [
+          "oklch(15.00% 0.00698 88.64)",
+          "oklch(26.43% 0.00698 88.64)",
+          "oklch(37.86% 0.00698 88.64)",
+          "oklch(49.29% 0.00698 88.64)",
+          "oklch(60.71% 0.00698 88.64)",
+          "oklch(72.14% 0.00698 88.64)",
+          "oklch(83.57% 0.00698 88.64)",
+          "oklch(95.00% 0.00698 88.64)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.00574 84.57)",
+          "oklch(26.43% 0.00574 84.57)",
+          "oklch(37.86% 0.00574 84.57)",
+          "oklch(49.29% 0.00574 84.57)",
+          "oklch(60.71% 0.00574 84.57)",
+          "oklch(72.14% 0.00574 84.57)",
+          "oklch(83.57% 0.00574 84.57)",
+          "oklch(95.00% 0.00574 84.57)"
+        ]
+      },
+      "muted-foreground": {
+        "role": "neutral",
+        "displayName": "Muted Foreground",
+        "tonalRamp": [
+          "oklch(15.00% 0.01520 82.38)",
+          "oklch(26.43% 0.01520 82.38)",
+          "oklch(37.86% 0.01520 82.38)",
+          "oklch(49.29% 0.01520 82.38)",
+          "oklch(60.71% 0.01520 82.38)",
+          "oklch(72.14% 0.01520 82.38)",
+          "oklch(83.57% 0.01520 82.38)",
+          "oklch(95.00% 0.01520 82.38)"
+        ]
+      },
+      "accent": {
+        "role": "neutral",
+        "displayName": "Accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.01949 50.16)",
+          "oklch(26.43% 0.01949 50.16)",
+          "oklch(37.86% 0.01949 50.16)",
+          "oklch(49.29% 0.01949 50.16)",
+          "oklch(60.71% 0.01949 50.16)",
+          "oklch(72.14% 0.01949 50.16)",
+          "oklch(83.57% 0.01949 50.16)",
+          "oklch(95.00% 0.01949 50.16)"
+        ]
+      },
+      "destructive": {
+        "role": "semantic",
+        "displayName": "Destructive",
+        "tonalRamp": [
+          "oklch(15.00% 0.18507 30.01)",
+          "oklch(26.43% 0.18507 30.01)",
+          "oklch(37.86% 0.18507 30.01)",
+          "oklch(49.29% 0.18507 30.01)",
+          "oklch(60.71% 0.18507 30.01)",
+          "oklch(72.14% 0.18507 30.01)",
+          "oklch(83.57% 0.18507 30.01)",
+          "oklch(95.00% 0.18507 30.01)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00871 84.57)",
+          "oklch(26.43% 0.00871 84.57)",
+          "oklch(37.86% 0.00871 84.57)",
+          "oklch(49.29% 0.00871 84.57)",
+          "oklch(60.71% 0.00871 84.57)",
+          "oklch(72.14% 0.00871 84.57)",
+          "oklch(83.57% 0.00871 84.57)",
+          "oklch(95.00% 0.00871 84.57)"
+        ]
+      },
+      "input": {
+        "role": "neutral",
+        "displayName": "Input",
+        "tonalRamp": [
+          "oklch(15.00% 0.01046 81.79)",
+          "oklch(26.43% 0.01046 81.79)",
+          "oklch(37.86% 0.01046 81.79)",
+          "oklch(49.29% 0.01046 81.79)",
+          "oklch(60.71% 0.01046 81.79)",
+          "oklch(72.14% 0.01046 81.79)",
+          "oklch(83.57% 0.01046 81.79)",
+          "oklch(95.00% 0.01046 81.79)"
+        ]
+      },
+      "ring": {
+        "role": "secondary",
+        "displayName": "Link Blue / น้ำเงินลิงก์",
+        "tonalRamp": [
+          "oklch(15.00% 0.15874 264.37)",
+          "oklch(26.43% 0.15874 264.37)",
+          "oklch(37.86% 0.15874 264.37)",
+          "oklch(49.29% 0.15874 264.37)",
+          "oklch(60.71% 0.15874 264.37)",
+          "oklch(72.14% 0.15874 264.37)",
+          "oklch(83.57% 0.15874 264.37)",
+          "oklch(95.00% 0.15874 264.37)"
+        ]
+      },
+      "link": {
+        "role": "secondary",
+        "displayName": "Link Blue / น้ำเงินลิงก์",
+        "tonalRamp": [
+          "oklch(15.00% 0.15874 264.37)",
+          "oklch(26.43% 0.15874 264.37)",
+          "oklch(37.86% 0.15874 264.37)",
+          "oklch(49.29% 0.15874 264.37)",
+          "oklch(60.71% 0.15874 264.37)",
+          "oklch(72.14% 0.15874 264.37)",
+          "oklch(83.57% 0.15874 264.37)",
+          "oklch(95.00% 0.15874 264.37)"
+        ]
+      },
+      "status-draft": {
+        "role": "semantic",
+        "displayName": "Status Draft",
+        "tonalRamp": [
+          "oklch(15.00% 0.11989 41.37)",
+          "oklch(26.43% 0.11989 41.37)",
+          "oklch(37.86% 0.11989 41.37)",
+          "oklch(49.29% 0.11989 41.37)",
+          "oklch(60.71% 0.11989 41.37)",
+          "oklch(72.14% 0.11989 41.37)",
+          "oklch(83.57% 0.11989 41.37)",
+          "oklch(95.00% 0.11989 41.37)"
+        ]
+      },
+      "publish": {
+        "role": "primary",
+        "displayName": "Terracotta / ดินเผา",
+        "tonalRamp": [
+          "oklch(15.00% 0.14984 37.72)",
+          "oklch(26.43% 0.14984 37.72)",
+          "oklch(37.86% 0.14984 37.72)",
+          "oklch(49.29% 0.14984 37.72)",
+          "oklch(60.71% 0.14984 37.72)",
+          "oklch(72.14% 0.14984 37.72)",
+          "oklch(83.57% 0.14984 37.72)",
+          "oklch(95.00% 0.14984 37.72)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar",
+        "tonalRamp": [
+          "oklch(15.00% 0.00410 91.45)",
+          "oklch(26.43% 0.00410 91.45)",
+          "oklch(37.86% 0.00410 91.45)",
+          "oklch(49.29% 0.00410 91.45)",
+          "oklch(60.71% 0.00410 91.45)",
+          "oklch(72.14% 0.00410 91.45)",
+          "oklch(83.57% 0.00410 91.45)",
+          "oklch(95.00% 0.00410 91.45)"
+        ]
+      },
+      "sidebar-foreground": {
+        "role": "neutral",
+        "displayName": "Sidebar Foreground",
+        "tonalRamp": [
+          "oklch(15.00% 0.01294 81.74)",
+          "oklch(26.43% 0.01294 81.74)",
+          "oklch(37.86% 0.01294 81.74)",
+          "oklch(49.29% 0.01294 81.74)",
+          "oklch(60.71% 0.01294 81.74)",
+          "oklch(72.14% 0.01294 81.74)",
+          "oklch(83.57% 0.01294 81.74)",
+          "oklch(95.00% 0.01294 81.74)"
+        ]
+      },
+      "sidebar-primary": {
+        "role": "primary",
+        "displayName": "Sidebar Primary",
+        "tonalRamp": [
+          "oklch(15.00% 0.16165 37.22)",
+          "oklch(26.43% 0.16165 37.22)",
+          "oklch(37.86% 0.16165 37.22)",
+          "oklch(49.29% 0.16165 37.22)",
+          "oklch(60.71% 0.16165 37.22)",
+          "oklch(72.14% 0.16165 37.22)",
+          "oklch(83.57% 0.16165 37.22)",
+          "oklch(95.00% 0.16165 37.22)"
+        ]
+      },
+      "sidebar-accent": {
+        "role": "neutral",
+        "displayName": "Sidebar Accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.01770 59.48)",
+          "oklch(26.43% 0.01770 59.48)",
+          "oklch(37.86% 0.01770 59.48)",
+          "oklch(49.29% 0.01770 59.48)",
+          "oklch(60.71% 0.01770 59.48)",
+          "oklch(72.14% 0.01770 59.48)",
+          "oklch(83.57% 0.01770 59.48)",
+          "oklch(95.00% 0.01770 59.48)"
+        ]
+      },
+      "sidebar-border": {
+        "role": "neutral",
+        "displayName": "Sidebar Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01325 82.40)",
+          "oklch(26.43% 0.01325 82.40)",
+          "oklch(37.86% 0.01325 82.40)",
+          "oklch(49.29% 0.01325 82.40)",
+          "oklch(60.71% 0.01325 82.40)",
+          "oklch(72.14% 0.01325 82.40)",
+          "oklch(83.57% 0.01325 82.40)",
+          "oklch(95.00% 0.01325 82.40)"
+        ]
+      },
+      "brand-dot": {
+        "role": "primary",
+        "displayName": "Brand Dot",
+        "tonalRamp": [
+          "oklch(15.00% 0.15827 38.74)",
+          "oklch(26.43% 0.15827 38.74)",
+          "oklch(37.86% 0.15827 38.74)",
+          "oklch(49.29% 0.15827 38.74)",
+          "oklch(60.71% 0.15827 38.74)",
+          "oklch(72.14% 0.15827 38.74)",
+          "oklch(83.57% 0.15827 38.74)",
+          "oklch(95.00% 0.15827 38.74)"
+        ]
+      },
+      "nav-current": {
+        "role": "primary",
+        "displayName": "Nav Current",
+        "tonalRamp": [
+          "oklch(15.00% 0.14108 36.47)",
+          "oklch(26.43% 0.14108 36.47)",
+          "oklch(37.86% 0.14108 36.47)",
+          "oklch(49.29% 0.14108 36.47)",
+          "oklch(60.71% 0.14108 36.47)",
+          "oklch(72.14% 0.14108 36.47)",
+          "oklch(83.57% 0.14108 36.47)",
+          "oklch(95.00% 0.14108 36.47)"
+        ]
+      },
+      "button-hover": {
+        "role": "neutral",
+        "displayName": "Button Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.01273 81.75)",
+          "oklch(26.43% 0.01273 81.75)",
+          "oklch(37.86% 0.01273 81.75)",
+          "oklch(49.29% 0.01273 81.75)",
+          "oklch(60.71% 0.01273 81.75)",
+          "oklch(72.14% 0.01273 81.75)",
+          "oklch(83.57% 0.01273 81.75)",
+          "oklch(95.00% 0.01273 81.75)"
+        ]
+      },
+      "button-outline-hover": {
+        "role": "neutral",
+        "displayName": "Button Outline Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.00986 87.47)",
+          "oklch(26.43% 0.00986 87.47)",
+          "oklch(37.86% 0.00986 87.47)",
+          "oklch(49.29% 0.00986 87.47)",
+          "oklch(60.71% 0.00986 87.47)",
+          "oklch(72.14% 0.00986 87.47)",
+          "oklch(83.57% 0.00986 87.47)",
+          "oklch(95.00% 0.00986 87.47)"
+        ]
+      },
+      "resource-border": {
+        "role": "neutral",
+        "displayName": "Resource Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00404 106.48)",
+          "oklch(26.43% 0.00404 106.48)",
+          "oklch(37.86% 0.00404 106.48)",
+          "oklch(49.29% 0.00404 106.48)",
+          "oklch(60.71% 0.00404 106.48)",
+          "oklch(72.14% 0.00404 106.48)",
+          "oklch(83.57% 0.00404 106.48)",
+          "oklch(95.00% 0.00404 106.48)"
+        ]
+      },
+      "resource-border-hover": {
+        "role": "neutral",
+        "displayName": "Resource Border Hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.04221 263.59)",
+          "oklch(26.43% 0.04221 263.59)",
+          "oklch(37.86% 0.04221 263.59)",
+          "oklch(49.29% 0.04221 263.59)",
+          "oklch(60.71% 0.04221 263.59)",
+          "oklch(72.14% 0.04221 263.59)",
+          "oklch(83.57% 0.04221 263.59)",
+          "oklch(95.00% 0.04221 263.59)"
+        ]
+      },
+      "tag-background": {
+        "role": "neutral",
+        "displayName": "Tag Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.00413 91.45)",
+          "oklch(26.43% 0.00413 91.45)",
+          "oklch(37.86% 0.00413 91.45)",
+          "oklch(49.29% 0.00413 91.45)",
+          "oklch(60.71% 0.00413 91.45)",
+          "oklch(72.14% 0.00413 91.45)",
+          "oklch(83.57% 0.00413 91.45)",
+          "oklch(95.00% 0.00413 91.45)"
+        ]
+      },
+      "tag-border": {
+        "role": "neutral",
+        "displayName": "Tag Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.00704 88.64)",
+          "oklch(26.43% 0.00704 88.64)",
+          "oklch(37.86% 0.00704 88.64)",
+          "oklch(49.29% 0.00704 88.64)",
+          "oklch(60.71% 0.00704 88.64)",
+          "oklch(72.14% 0.00704 88.64)",
+          "oklch(83.57% 0.00704 88.64)",
+          "oklch(95.00% 0.00704 88.64)"
+        ]
+      },
+      "tag-text": {
+        "role": "neutral",
+        "displayName": "Tag Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.00677 84.58)",
+          "oklch(26.43% 0.00677 84.58)",
+          "oklch(37.86% 0.00677 84.58)",
+          "oklch(49.29% 0.00677 84.58)",
+          "oklch(60.71% 0.00677 84.58)",
+          "oklch(72.14% 0.00677 84.58)",
+          "oklch(83.57% 0.00677 84.58)",
+          "oklch(95.00% 0.00677 84.58)"
+        ]
+      },
+      "editor-background": {
+        "role": "neutral",
+        "displayName": "Editor Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.00409 91.45)",
+          "oklch(26.43% 0.00409 91.45)",
+          "oklch(37.86% 0.00409 91.45)",
+          "oklch(49.29% 0.00409 91.45)",
+          "oklch(60.71% 0.00409 91.45)",
+          "oklch(72.14% 0.00409 91.45)",
+          "oklch(83.57% 0.00409 91.45)",
+          "oklch(95.00% 0.00409 91.45)"
+        ]
+      },
+      "editor-border": {
+        "role": "neutral",
+        "displayName": "Editor Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01319 82.40)",
+          "oklch(26.43% 0.01319 82.40)",
+          "oklch(37.86% 0.01319 82.40)",
+          "oklch(49.29% 0.01319 82.40)",
+          "oklch(60.71% 0.01319 82.40)",
+          "oklch(72.14% 0.01319 82.40)",
+          "oklch(83.57% 0.01319 82.40)",
+          "oklch(95.00% 0.01319 82.40)"
+        ]
+      },
+      "field-background": {
+        "role": "neutral",
+        "displayName": "Field Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.00450 78.30)",
+          "oklch(26.43% 0.00450 78.30)",
+          "oklch(37.86% 0.00450 78.30)",
+          "oklch(49.29% 0.00450 78.30)",
+          "oklch(60.71% 0.00450 78.30)",
+          "oklch(72.14% 0.00450 78.30)",
+          "oklch(83.57% 0.00450 78.30)",
+          "oklch(95.00% 0.00450 78.30)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.01336 82.40)",
+          "oklch(26.43% 0.01336 82.40)",
+          "oklch(37.86% 0.01336 82.40)",
+          "oklch(49.29% 0.01336 82.40)",
+          "oklch(60.71% 0.01336 82.40)",
+          "oklch(72.14% 0.01336 82.40)",
+          "oklch(83.57% 0.01336 82.40)",
+          "oklch(95.00% 0.01336 82.40)"
+        ]
+      },
+      "draft-background": {
+        "role": "semantic",
+        "displayName": "Draft Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.01023 67.71)",
+          "oklch(26.43% 0.01023 67.71)",
+          "oklch(37.86% 0.01023 67.71)",
+          "oklch(49.29% 0.01023 67.71)",
+          "oklch(60.71% 0.01023 67.71)",
+          "oklch(72.14% 0.01023 67.71)",
+          "oklch(83.57% 0.01023 67.71)",
+          "oklch(95.00% 0.01023 67.71)"
+        ]
+      },
+      "draft-border": {
+        "role": "semantic",
+        "displayName": "Draft Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.05511 42.67)",
+          "oklch(26.43% 0.05511 42.67)",
+          "oklch(37.86% 0.05511 42.67)",
+          "oklch(49.29% 0.05511 42.67)",
+          "oklch(60.71% 0.05511 42.67)",
+          "oklch(72.14% 0.05511 42.67)",
+          "oklch(83.57% 0.05511 42.67)",
+          "oklch(95.00% 0.05511 42.67)"
+        ]
+      },
+      "published-background": {
+        "role": "semantic",
+        "displayName": "Published Background",
+        "tonalRamp": [
+          "oklch(15.00% 0.01331 115.83)",
+          "oklch(26.43% 0.01331 115.83)",
+          "oklch(37.86% 0.01331 115.83)",
+          "oklch(49.29% 0.01331 115.83)",
+          "oklch(60.71% 0.01331 115.83)",
+          "oklch(72.14% 0.01331 115.83)",
+          "oklch(83.57% 0.01331 115.83)",
+          "oklch(95.00% 0.01331 115.83)"
+        ]
+      },
+      "published-border": {
+        "role": "semantic",
+        "displayName": "Published Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.03395 114.49)",
+          "oklch(26.43% 0.03395 114.49)",
+          "oklch(37.86% 0.03395 114.49)",
+          "oklch(49.29% 0.03395 114.49)",
+          "oklch(60.71% 0.03395 114.49)",
+          "oklch(72.14% 0.03395 114.49)",
+          "oklch(83.57% 0.03395 114.49)",
+          "oklch(95.00% 0.03395 114.49)"
+        ]
+      },
+      "published-text": {
+        "role": "semantic",
+        "displayName": "Published Text",
+        "tonalRamp": [
+          "oklch(15.00% 0.06813 119.75)",
+          "oklch(26.43% 0.06813 119.75)",
+          "oklch(37.86% 0.06813 119.75)",
+          "oklch(49.29% 0.06813 119.75)",
+          "oklch(60.71% 0.06813 119.75)",
+          "oklch(72.14% 0.06813 119.75)",
+          "oklch(83.57% 0.06813 119.75)",
+          "oklch(95.00% 0.06813 119.75)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Editorial Display",
+        "purpose": "Homepage heading; responsive overrides are documented in DESIGN.md."
+      },
+      "headline": {
+        "displayName": "Inner-page Headline",
+        "purpose": "Serif public page headings."
+      },
+      "reading": {
+        "displayName": "Reading Prose",
+        "purpose": "Long-form article text with narrow measure."
+      },
+      "editor": {
+        "displayName": "Writing Input",
+        "purpose": "Serif owner writing surface."
+      }
+    },
+    "shadows": [
+      {
+        "name": "writing-editor",
+        "value": "0 2px 15px #33251606",
+        "purpose": "Faint elevation around the owner writing container."
+      },
+      {
+        "name": "primitive-xs",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Tailwind shadow-xs on outline buttons and base inputs where overrides do not remove it."
+      },
+      {
+        "name": "overlay-lg",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Tailwind shadow-lg on dialog content."
+      }
+    ],
+    "motion": [
+      {
+        "name": "portrait-placement",
+        "value": "560ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "One visible homepage photo placement: 4px translation and 1 degree rotation; skipped for reduced motion."
+      },
+      {
+        "name": "navigation-underline",
+        "value": "180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Draw underline for hover, keyboard focus, and current-page feedback."
+      },
+      {
+        "name": "disclosure-state",
+        "value": "200ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Project chevron rotates to indicate open/closed state; immediate for reduced motion."
+      },
+      {
+        "name": "public-hover",
+        "value": "0.15s",
+        "purpose": "Public button and resource border/background transitions."
+      },
+      {
+        "name": "overlay-duration",
+        "value": "200ms",
+        "purpose": "Component-library overlay duration; reduced motion removes animations and transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "public-narrow",
+        "value": "360px"
+      },
+      {
+        "name": "public-mobile",
+        "value": "700px"
+      },
+      {
+        "name": "owner-sidebar-mobile",
+        "value": "768px"
+      },
+      {
+        "name": "stack-workspace",
+        "value": "1100px"
+      },
+      {
+        "name": "wide-workspace",
+        "value": "1500px"
+      }
+    ],
+    "surfaceFinish": {
+      "selection": {
+        "background": "var(--accent)",
+        "color": "var(--foreground)"
+      },
+      "caretColor": "var(--link)",
+      "ownerNumbers": "tabular-nums",
+      "accessHeading": {
+        "fontFamily": "var(--serif)",
+        "fontSize": "clamp(30px, 5vw, 38px)",
+        "letterSpacing": "-0.02em"
+      },
+      "displayTracking": "-0.04em",
+      "mobileSearchFontSize": "16px",
+      "ownerActionCaption": "12px"
+    }
+  },
+  "components": [
+    {
+      "name": "Public Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Charcoal public action.",
+      "html": "<button class=\"ds-primary\">About &amp; experience</button>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:11px 22px;border:1px solid var(--primary,#242320);border-radius:5px;font:400 14px/1.5 Arial, \"Leelawadee UI\", Tahoma, sans-serif;text-decoration:none;cursor:pointer;transition:background .15s;background:var(--primary,#242320);color:var(--primary-foreground,#fff)}.ds-primary:hover{background:#49453e}.ds-primary:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}.ds-primary:disabled{cursor:default}"
+    },
+    {
+      "name": "Public Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary public action.",
+      "html": "<button class=\"ds-outline\">Explore notes</button>",
+      "css": ".ds-outline{display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:11px 22px;border:1px solid var(--primary,#242320);border-radius:5px;font:400 14px/1.5 Arial, \"Leelawadee UI\", Tahoma, sans-serif;text-decoration:none;cursor:pointer;transition:background .15s;background:transparent;color:var(--foreground,#242320)}.ds-outline:hover{background:#f2efe8}.ds-outline:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}"
+    },
+    {
+      "name": "Owner Default Button",
+      "kind": "button",
+      "refersTo": "button-owner",
+      "description": "Default library primitive, before actionbar overrides.",
+      "html": "<button class=\"ds-owner\">Save profile</button>",
+      "css": ".ds-owner{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border-radius:6px;border:0;font:500 14px/1.5 Arial, \"Leelawadee UI\", Tahoma, sans-serif;cursor:pointer;transition:all .15s;background:var(--primary,#242320);color:var(--primary-foreground,#fff)}.ds-owner:hover{background:color-mix(in srgb,var(--primary,#242320) 90%,transparent)}.ds-owner:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}.ds-owner:disabled{opacity:.5;pointer-events:none}"
+    },
+    {
+      "name": "Publish Button",
+      "kind": "button",
+      "refersTo": "button-publish",
+      "description": "Terracotta publication action with actionbar type.",
+      "html": "<button class=\"ds-publish\">Publish</button>",
+      "css": ".ds-publish{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border-radius:6px;border:0;font:500 14px/1.5 Arial, \"Leelawadee UI\", Tahoma, sans-serif;cursor:pointer;transition:all .15s;font-size:12px;font-weight:400;background:var(--publish,#b54825);color:var(--primary-foreground,#fff);border:1px solid var(--publish,#b54825)}.ds-publish:hover{background:#ad4623}.ds-publish:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}.ds-publish:disabled{opacity:.5;pointer-events:none}@media(max-width:700px),(pointer:coarse){.ds-publish{min-height:44px}}"
+    },
+    {
+      "name": "Owner Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Lightweight primitive for toolbar and auxiliary actions; transparent at rest.",
+      "html": "<button class=\"ds-ghost\">Add contact</button>",
+      "css": ".ds-ghost{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:8px 16px;border-radius:6px;border:0;font:500 14px/1.5 Arial, \"Leelawadee UI\", Tahoma, sans-serif;cursor:pointer;transition:all .15s;background:transparent;color:var(--foreground,#242320)}.ds-ghost:hover{background:var(--accent,#fff0e8);color:var(--status-draft,#9f4c2b)}.ds-ghost:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}.ds-ghost:disabled{opacity:.5;pointer-events:none}"
+    },
+    {
+      "name": "Owner Field",
+      "kind": "input",
+      "refersTo": "input-owner",
+      "description": "Paper-filled field with global focus outline and library focus state.",
+      "html": "<label class=\"ds-field\">Title<input placeholder=\"Write a title\"></label>",
+      "css": ".ds-field{display:block;font:500 13px/1.75 Arial, \"Leelawadee UI\", Tahoma, sans-serif;color:var(--foreground,#242320)}.ds-field input{display:block;width:100%;min-width:0;margin-top:6px;height:41px;padding:4px 12px;border:1px solid #ded9d0;border-radius:6px;background:#fffdfa;color:var(--foreground,#242320);font:400 16px/1.75 Arial, \"Leelawadee UI\", Tahoma, sans-serif;transition:color .15s,box-shadow .15s}.ds-field input::placeholder{color:var(--muted-foreground,#6d685f)}.ds-field input:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px;border-color:var(--ring,#426cce)}.ds-field input[aria-invalid=true]{border-color:var(--destructive,#c43223)}.ds-field input:disabled{opacity:.5;pointer-events:none}@media(max-width:700px),(pointer:coarse){.ds-field input{min-height:44px}}"
+    },
+    {
+      "name": "Public Navigation",
+      "kind": "nav",
+      "refersTo": "navigation",
+      "description": "Visible text navigation with current-page and hover states.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main navigation\"><a href=\"/about\" aria-current=\"page\">About</a><a href=\"/projects\">Projects</a><a href=\"/notes\">Notes</a><a href=\"/archive\">Archive</a></nav>",
+      "css": ".ds-nav{display:flex;flex-wrap:wrap;gap:30px;font:400 14px/1.75 Arial, \"Leelawadee UI\", Tahoma, sans-serif}.ds-nav a{color:var(--foreground,#242320);text-decoration:none}.ds-nav a:hover{color:var(--link,#426cce)}.ds-nav a[aria-current]{color:#a94326}.ds-nav a:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}@media(max-width:700px){.ds-nav{width:100%;justify-content:space-between;gap:10px;font-size:13px}}@media(max-width:700px),(pointer:coarse){.ds-nav a{display:inline-flex;align-items:center;min-height:44px;min-width:44px}}"
+    },
+    {
+      "name": "Interest Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Small neutral tag linking to filtered Notes.",
+      "html": "<a class=\"ds-tag\" href=\"/notes?tag=AI%2FTech\">AI/Tech</a>",
+      "css": ".ds-tag{display:inline-block;background:#f2f1ee;border:1px solid #e9e7e2;padding:3px 10px;border-radius:5px;color:#63615d;font:400 12px/1.75 Arial, \"Leelawadee UI\", Tahoma, sans-serif;text-decoration:none;overflow-wrap:anywhere}.ds-tag:hover{color:var(--link,#426cce)}.ds-tag:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}@media(max-width:700px),(pointer:coarse){.ds-tag{display:inline-flex;align-items:center;min-height:44px;min-width:44px}}"
+    },
+    {
+      "name": "Resource Card",
+      "kind": "card",
+      "refersTo": "resource-card",
+      "description": "Flat resource link with a blue title and quiet border.",
+      "html": "<a class=\"ds-resource\" href=\"/projects\"><h3>Projects</h3><p>Explore projects and their details.</p></a>",
+      "css": ".ds-resource{display:block;min-width:0;border:1px solid #dededb;border-radius:16px;padding:18px 20px;background:var(--card,#fff);color:var(--foreground,#242320);text-decoration:none;font-family:Arial, \"Leelawadee UI\", Tahoma, sans-serif;transition:border-color .15s,background .15s}.ds-resource:hover{border-color:#9caac5;background:#fefefe}.ds-resource:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:4px}.ds-resource h3{margin:0;font-size:15px;line-height:1.6;font-weight:600;color:var(--link,#426cce)}.ds-resource p{margin:4px 0 0;font-size:14px;line-height:1.65;color:#747775}@media(max-width:700px){.ds-resource{padding:16px 18px}}"
+    },
+    {
+      "name": "Writing Surface",
+      "kind": "custom",
+      "refersTo": "writing-editor",
+      "description": "Owner paper container and serif writing input.",
+      "html": "<section class=\"ds-editor\"><label class=\"ds-editor-label\" for=\"ds-body\">Content</label><textarea id=\"ds-body\" class=\"ds-body\" placeholder=\"Start writing\"></textarea></section>",
+      "css": ".ds-editor{min-width:0;background:#fffefb;border:1px solid #eee9e0;border-radius:11px;padding:20px;box-shadow:0 2px 15px #33251606;color:var(--foreground,#242320)}.ds-editor-label{display:block;margin-bottom:6px;font:500 13px/1.75 Arial, \"Leelawadee UI\", Tahoma, sans-serif}.ds-body{width:100%;min-height:380px;resize:vertical;padding:20px;background:#fff;border:1px solid #ded9d0;border-radius:6px;color:var(--foreground,#242320);font:400 16px/1.9 Georgia,\"Leelawadee UI\",serif}.ds-body::placeholder{color:var(--muted-foreground,#6d685f)}.ds-body:focus-visible{outline:2px solid var(--ring,#426cce);outline-offset:-2px}@media(max-width:700px){.ds-editor{padding:14px}.ds-body{padding:15px;min-height:320px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Personal Notebook / สมุดบันทึกส่วนตัว",
+    "overview": "Borworn feels warm, personal, and quietly editorial. A paper-colored canvas, charcoal text, generous reading space, and serif headings make the public site feel like a personal notebook. Straightforward sans-serif navigation and metadata keep the writing easy to scan.\n\nThe owner workspace shares the same palette and type families but uses denser lists, compact controls, and a lightly enclosed writing surface. Buttons, cards, and fields are simple, courteous, and clear to use, with modestly curved edges. This description and the color names below were confirmed by the owner; no additional visual anti-reference was specified.",
+    "keyCharacteristics": [
+      "Warm paper and charcoal, with terracotta highlights and blue links.",
+      "Serif display headings paired with practical sans-serif text.",
+      "Mostly flat surfaces separated by tone and fine borders.",
+      "Open public reading layouts and a compact owner workspace.",
+      "Real portrait imagery and restrained outline icons."
+    ],
+    "rules": [
+      {
+        "name": "The Contextual Accent Rule",
+        "body": "Preserve the existing distinction between blue links and focus, terracotta identity and owner actions, and olive published status; do not flatten them into a single accent.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Keep serif type for identity, prominent public headings, and the writing input; preserve sans-serif article titles, prose, navigation, and operational controls.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Surface Rule",
+        "body": "Keep ordinary reading and list surfaces flat; preserve the editor's subtle shadow and reserve pronounced elevation for overlays.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** preserve warm Paper, Charcoal text, Terracotta highlights, and Link Blue interactions in their documented contexts.",
+      "**Do** use the existing serif and sans-serif stacks, including Thai fallbacks.",
+      "**Do** keep public reading spacious and owner controls compact within the same identity.",
+      "**Do** reuse contextual corners, borders, and quiet surface layers rather than forcing one radius everywhere.",
+      "**Do** retain visible keyboard focus, reduced-motion behavior, wrapping content, and enlarged touch targets.",
+      "**Do** check later CSS overrides when extending a component; final section headings, captions, table labels, and preview spacing differ from earlier declarations."
+    ],
+    "donts": [
+      "**Don't** replace the existing palette or font families during a refinement without an explicit redesign request.",
+      "**Don't** add pronounced resting shadows to public reading rows or resource cards.",
+      "**Don't** use publication-state colors as interchangeable decorative accents.",
+      "**Don't** assume every heading is serif or every component uses the same corner radius.",
+      "**Don't** treat source-documented responsive and owner styles as a completed accessibility or browser conformance audit."
+    ]
+  }
+}

@@ -4,7 +4,10 @@ import { plainText, readingMinutes } from "@/lib/writing";
 
 function excerpt(body: string) {
   const text = plainText(body);
-  return text.length > 220 ? `${text.slice(0, 220).trimEnd()}…` : text;
+  if (text.length <= 220) return text;
+  const clipped = text.slice(0, 220);
+  const boundary = clipped.search(/\s+\S*$/);
+  return `${(boundary > 160 ? clipped.slice(0, boundary) : clipped).trimEnd()}…`;
 }
 
 export function WritingPreviews({

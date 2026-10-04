@@ -1,15 +1,16 @@
 import { SignOut } from "../components/sign-out";
 import type { PageData } from "../App";
-import { Shell, Rows, Tags, Contacts, Empty, Author } from "@/components/site";
+import { Shell, Rows, Tags, Interests, Contacts, Empty, Author } from "@/components/site";
 import { WritingPreviews } from "@/components/writing-previews";
 import { Markdown } from "@/components/markdown";
 import { archiveGroups } from "@/lib/writing";
+import { projectPresentation } from "@/lib/projects";
 import { date, safeUrl } from "@/lib/content";
 import NotFound from "./NotFound";
 
 import { lazy, Suspense } from "react";
 const Admin = lazy(() => import("@/components/admin"));
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight, ChevronRight, Search } from "lucide-react";
 export default function Content({
   path,
   q,
@@ -32,7 +33,10 @@ export default function Content({
         <main className="access">
           <h1>You don’t have access to the owner area</h1>
           <p>Please sign in with the site owner account.</p>
-          <SignOut>Switch account</SignOut>
+          <div className="access-actions">
+            <SignOut className="button-link">Switch account</SignOut>
+            <a href="/">Back to website</a>
+          </div>
         </main>
       );
     return (
@@ -62,6 +66,9 @@ export default function Content({
               <p className="meta">
                 Updated <time dateTime={e.updated}>{date(e.updated)}</time>
               </p>
+              <a className="back" href={"/" + route}>
+                ← {route === "notes" ? "All notes" : "All posts"}
+              </a>
             </div>
           </div>
         </article>
@@ -119,11 +126,13 @@ export default function Content({
             </section>
           </div>
           <aside>
-            <h2>Skills</h2>
-            <p className="preserve">{p.skills || "No skills added yet"}</p>
+            {p.skills.trim() && <>
+              <h2>Skills</h2>
+              <p className="preserve">{p.skills}</p>
+            </>}
             <h2>Curiosities</h2>
             {interests.length ? (
-              <Tags tags={interests} />
+              <Interests items={interests} />
             ) : (
               <p className="muted">No interests added yet</p>
             )}
@@ -145,7 +154,9 @@ export default function Content({
         </div>
         {p.projects.length ? (
           <div className="resource-grid">
-            {p.projects.map((x, i) => (
+            {p.projects.map((x, i) => {
+              const { summary, details } = projectPresentation(x.description);
+              return (
               <article className="resource-card project" key={i}>
                 <h2>
                   {safeUrl(x.url) ? (
@@ -156,10 +167,17 @@ export default function Content({
                     x.name
                   )}
                 </h2>
-                <Markdown body={x.description} />
-                <p className="meta">Tech Stack · {x.role}</p>
+                {summary && <p className="project-summary">{summary}</p>}
+                {x.role.trim() && <div className="project-stack">
+                  <h3>Tech Stack</h3>
+                  <p>{x.role}</p>
+                </div>}
+                {details && <details className="project-details">
+                  <summary><ChevronRight className="disclosure-chevron" size={16} aria-hidden="true" />Contribution &amp; details<span className="sr-only">: {x.name}</span></summary>
+                  <Markdown body={details} />
+                </details>}
               </article>
-            ))}
+            );})}
           </div>
         ) : (
           <Empty>No projects shared yet</Empty>
@@ -177,10 +195,14 @@ export default function Content({
           (e.title + " " + e.body).toLocaleLowerCase().includes(query)) &&
         (!selected || e.tags.includes(selected)),
     );
+    const total = data.listing?.total ?? filtered.length;
     content = (
       <div className="inner-page">
         <div className="page-heading">
           <h1>{route === "notes" ? "Notes" : "Archive"}</h1>
+          {route === "archive" && <p className="archive-intro">
+            Weekly AI and tech roundups, curated by me.
+          </p>}
         </div>
         {route === "notes" && (
           <>
@@ -191,6 +213,7 @@ export default function Content({
               </label>
               <input
                 id="q"
+                type="search"
                 name="q"
                 placeholder="Search notes…"
                 defaultValue={q.q}
@@ -231,7 +254,7 @@ export default function Content({
         )}
         <div className="section-label">
           <span>
-            {data.listing?.total ?? filtered.length} {route === "notes" ? "notes" : "posts"}
+            {total} {route === "notes" ? total === 1 ? "note" : "notes" : total === 1 ? "post" : "posts"}
           </span>
           <span>Latest first</span>
         </div>
@@ -247,7 +270,10 @@ export default function Content({
             </div>
           ) : <WritingPreviews entries={filtered} author={p.name} />
         ) : (
-          <Empty>
+          route === "archive" ? <Empty>
+            <p>No roundups published yet.</p>
+            <p>For personal stories and things I’ve learned, <a className="text-link" href="/notes">explore Notes</a>.</p>
+          </Empty> : <Empty>
             {query || selected
               ? "No matching notes. Try another search or clear the filters."
               : "Nothing published yet"}
@@ -293,21 +319,15 @@ export default function Content({
           </div>
         </section>
         <section className="home-bottom">
-          <div className="curiosity-column">
-            <h2>Interests</h2>
-            {interests.length > 0 && <Tags tags={interests} />}
-            <a className="text-link" href="/about#contact">
-              Let’s connect <ArrowRight size={15} />
-            </a>
-          </div>
           {(["notes", "archive"] as const).map((kind) => (
-            <div key={kind} className="latest-column">
+            <div key={kind} className={"latest-column latest-" + kind}>
               <div className="section-title">
                 <h2>Latest {kind}</h2>
                 <a href={"/" + kind}>
                   View all <ArrowRight size={13} />
                 </a>
               </div>
+              {kind === "archive" && <p className="muted archive-description">Weekly AI and tech roundups, curated by me.</p>}
               {entries.filter((e) => e.kind === kind).length ? (
                 <Rows
                   entries={entries.filter((e) => e.kind === kind).slice(0, 3)}
@@ -316,11 +336,18 @@ export default function Content({
                 <Empty>
                   {data.writingUnavailable ? "Writing could not be loaded. Open View all to try again." : kind === "notes"
                     ? "No notes published yet"
-                    : "No archive posts published yet"}
+                    : <>No roundups published yet. <a className="text-link" href="/notes">Explore Notes</a></>}
                 </Empty>
               )}
             </div>
           ))}
+          <div className="curiosity-column">
+            <h2>Interests</h2>
+            {interests.length > 0 && <Interests items={interests} />}
+            <a className="text-link" href="/about#contact">
+              Let’s connect <ArrowRight size={15} />
+            </a>
+          </div>
         </section>
       </>
     );
