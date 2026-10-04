@@ -100,7 +100,7 @@ export function Empty({ children }: { children: React.ReactNode }) {
   return <div className="blank">{children}</div>;
 }
 export function ProfileAvatar() {
-  return <img className="profile-avatar" src="/images/Profile.jpg" alt="" width="48" height="48"
+  return <img className="profile-avatar" src="/images/Profile.jpg" alt="" width="48" height="48" loading="lazy" decoding="async"
     onError={(event) => { event.currentTarget.style.visibility = "hidden"; }} />;
 }
 export function Author({ name, body, published }: { name: string; body: string; published: string | null }) {

@@ -7,7 +7,13 @@ import { supabase } from "./lib/supabase";
 import { loadContent } from "./lib/store";
 import type { Entry, Profile } from "./lib/content";
 
-export type PageData = { profile: Profile; entries: Entry[]; owner?: boolean };
+export type PageData = {
+  profile: Profile;
+  entries: Entry[];
+  owner?: boolean;
+  writingUnavailable?: boolean;
+  listing?: { total: number; page: number; pageSize: number; tags: string[] };
+};
 
 export default function App() {
   const [data, setData] = useState<PageData | null>(null);
@@ -17,8 +23,10 @@ export default function App() {
   const [loadedFor, setLoadedFor] = useState<string | null | undefined>(
     undefined,
   );
-  const path = window.location.pathname.split("/").filter(Boolean);
-  const q = Object.fromEntries(new URLSearchParams(window.location.search));
+  const pathname = window.location.pathname;
+  const search = window.location.search;
+  const path = pathname.split("/").filter(Boolean);
+  const q = Object.fromEntries(new URLSearchParams(search));
   const admin = path.length === 1 && path[0] === "admin";
 
   const legacyUrl = legacyBlogUrl(window.location.pathname, window.location.search, window.location.hash);
@@ -27,7 +35,7 @@ export default function App() {
   }, [legacyUrl]);
 
   useEffect(() => {
-    if (!supabase) return;
+    if (!supabase || !admin) return;
     let active = true;
     const {
       data: { subscription },
@@ -48,12 +56,19 @@ export default function App() {
       active = false;
       subscription.unsubscribe();
     };
-  }, [attempt]);
+  }, [admin, attempt]);
 
   useEffect(() => {
-    if (!supabase || userId === undefined || (admin && !userId)) return;
+    if (!supabase || (admin && !userId)) return;
     const controller = new AbortController();
-    loadContent(admin, controller.signal)
+    const timeout = window.setTimeout(() => {
+      controller.abort();
+      setFailed(true);
+    }, 15000);
+    loadContent(admin, controller.signal, {
+      path: pathname.split("/").filter(Boolean),
+      q: Object.fromEntries(new URLSearchParams(search)),
+    })
       .then((result) => {
         if (!controller.signal.aborted) {
           setData(result);
@@ -62,9 +77,13 @@ export default function App() {
       })
       .catch(() => {
         if (!controller.signal.aborted) setFailed(true);
-      });
-    return () => controller.abort();
-  }, [admin, userId, attempt]);
+      })
+      .finally(() => window.clearTimeout(timeout));
+    return () => {
+      window.clearTimeout(timeout);
+      controller.abort();
+    };
+  }, [admin, userId, attempt, pathname, search]);
 
   useEffect(() => {
     if (data && window.location.hash) {
@@ -93,6 +112,7 @@ export default function App() {
       />
     );
   if (admin && userId === null) return <Login />;
-  if (!data || loadedFor !== userId) return null;
+  if (!data || (admin && loadedFor !== userId))
+    return <main className="access" aria-busy="true"><p role="status">Loading {admin ? "owner workspace" : "portfolio"}…</p></main>;
   return <Content path={path} q={q} data={data} />;
 }

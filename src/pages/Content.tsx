@@ -7,7 +7,8 @@ import { archiveGroups } from "@/lib/writing";
 import { date, safeUrl } from "@/lib/content";
 import NotFound from "./NotFound";
 
-import Admin from "@/components/admin";
+import { lazy, Suspense } from "react";
+const Admin = lazy(() => import("@/components/admin"));
 import { ArrowRight, Search } from "lucide-react";
 export default function Content({
   path,
@@ -35,7 +36,9 @@ export default function Content({
         </main>
       );
     return (
-      <Admin initialProfile={data.profile} initialEntries={data.entries} />
+      <Suspense fallback={<main className="access" aria-busy="true"><p role="status">Loading owner workspace…</p></main>}>
+        <Admin initialProfile={data.profile} initialEntries={data.entries} />
+      </Suspense>
     );
   }
   const p = data.profile;
@@ -165,10 +168,10 @@ export default function Content({
     );
   else if (route === "notes" || route === "archive") {
     const all = data.entries.filter((e) => e.kind === route);
-    const tags = [...new Set(all.flatMap((e) => e.tags))];
+    const tags = data.listing?.tags ?? [...new Set(all.flatMap((e) => e.tags))];
     const query = (q.q || "").toLocaleLowerCase();
     const selected = q.tag || "";
-    const filtered = all.filter(
+    const filtered = data.listing ? all : all.filter(
       (e) =>
         (!query ||
           (e.title + " " + e.body).toLocaleLowerCase().includes(query)) &&
@@ -221,7 +224,7 @@ export default function Content({
         )}
         <div className="section-label">
           <span>
-            {filtered.length} {route === "notes" ? "notes" : "posts"}
+            {data.listing?.total ?? filtered.length} {route === "notes" ? "notes" : "posts"}
           </span>
           <span>Latest first</span>
         </div>
@@ -242,6 +245,13 @@ export default function Content({
               ? "No matching notes. Try another search or select All notes."
               : "Nothing published yet"}
           </Empty>
+        )}
+        {data.listing && data.listing.total > data.listing.pageSize && (
+          <nav className="pagination" aria-label="Writing pages">
+            {data.listing.page > 1 && <a className="button-link outline" href={pageUrl(route, q, data.listing.page - 1)}>Previous</a>}
+            <span className="muted">Page {data.listing.page} of {Math.ceil(data.listing.total / data.listing.pageSize)}</span>
+            {data.listing.page * data.listing.pageSize < data.listing.total && <a className="button-link outline" href={pageUrl(route, q, data.listing.page + 1)}>Next</a>}
+          </nav>
         )}
       </div>
     );
@@ -297,7 +307,7 @@ export default function Content({
                 />
               ) : (
                 <Empty>
-                  {kind === "notes"
+                  {data.writingUnavailable ? "Writing could not be loaded. Open View all to try again." : kind === "notes"
                     ? "No notes published yet"
                     : "No archive posts published yet"}
                 </Empty>
@@ -313,4 +323,12 @@ export default function Content({
       {content}
     </Shell>
   );
+}
+
+function pageUrl(route: string, q: Record<string, string | undefined>, page: number) {
+  const params = new URLSearchParams();
+  if (q.q) params.set("q", q.q);
+  if (q.tag) params.set("tag", q.tag);
+  params.set("page", String(page));
+  return `/${route}?${params}`;
 }

@@ -10,7 +10,7 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint src vite.config.ts",
-    "test": "node tests/database.mjs && node tests/ui.mjs"
+    "test": "node tests/database.mjs && node tests/ui.mjs && node tests/loading.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
