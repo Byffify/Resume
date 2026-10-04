@@ -437,7 +437,7 @@ fieldset {
 }
 .about-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   gap: 60px;
 }
 .about-grid aside {
@@ -1375,3 +1375,51 @@ fieldset {
 
 .archive-month + .archive-month { margin-top: 40px; }
 .archive-month > h2 { font-size: 20px; margin-bottom: 16px; }
+
+/* Reflow long content and keep standalone controls comfortable on touch. */
+.brand,
+.author > div,
+.owner-identity {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.preserve,
+.contacts a,
+.tags a {
+  overflow-wrap: anywhere;
+}
+.library-controls,
+.library-filters {
+  flex-wrap: wrap;
+}
+@media (max-width: 700px), (pointer: coarse) {
+  .site-header nav a,
+  .site-footer a,
+  .contacts a,
+  .tags a,
+  .filters a,
+  .section-title > a,
+  .back,
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .owner-app button,
+  .access button,
+  .button-link,
+  .field input,
+  .type-select {
+    min-height: 44px;
+  }
+  .format-toolbar button {
+    width: 44px;
+    height: 44px;
+  }
+  .owner-topbar {
+    height: auto;
+    min-height: 65px;
+    flex-wrap: wrap;
+  }
+}
