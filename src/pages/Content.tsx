@@ -201,6 +201,7 @@ export default function Content({
             <div className="filters">
               <a
                 className={!selected ? "selected" : ""}
+                aria-current={!selected ? "true" : undefined}
                 href={"/notes?q=" + encodeURIComponent(q.q || "")}
               >
                 All notes
@@ -208,6 +209,7 @@ export default function Content({
               {tags.map((t) => (
                 <a
                   className={selected === t ? "selected" : ""}
+                  aria-current={selected === t ? "true" : undefined}
                   key={t}
                   href={
                     "/notes?tag=" +
@@ -220,6 +222,11 @@ export default function Content({
                 </a>
               ))}
             </div>
+            {(query || selected) && <p className="search-context">
+              {query && <span>Search: “{q.q}”</span>}
+              {selected && <span>Tag: {selected}</span>}
+              <a className="text-link" href="/notes">Clear search and filters</a>
+            </p>}
           </>
         )}
         <div className="section-label">
@@ -242,7 +249,7 @@ export default function Content({
         ) : (
           <Empty>
             {query || selected
-              ? "No matching notes. Try another search or select All notes."
+              ? "No matching notes. Try another search or clear the filters."
               : "Nothing published yet"}
           </Empty>
         )}

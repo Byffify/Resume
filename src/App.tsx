@@ -37,6 +37,9 @@ export default function App() {
   useEffect(() => {
     if (!supabase || !admin) return;
     let active = true;
+    const timeout = window.setTimeout(() => {
+      if (active) setFailed(true);
+    }, 15000);
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -51,9 +54,11 @@ export default function App() {
       })
       .catch(() => {
         if (active) setFailed(true);
-      });
+      })
+      .finally(() => window.clearTimeout(timeout));
     return () => {
       active = false;
+      window.clearTimeout(timeout);
       subscription.unsubscribe();
     };
   }, [admin, attempt]);
@@ -90,6 +95,17 @@ export default function App() {
       document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
     }
   }, [data]);
+
+  const invalidPath = path.length > 2 || !["", "about", "projects", "notes", "archive", "admin"].includes(path[0] ?? "")
+    || (path.length > 1 && !["notes", "archive"].includes(path[0]));
+  const routeTitle = !supabase ? "Set up the website connection" : failed ? "Could not load the website"
+    : invalidPath ? "Page not found" : admin ? userId === null ? "Sign in as site owner" : "Owner workspace"
+    : path[1] ? data?.entries.find((entry) => entry.id === path[1] && entry.kind === path[0])?.title ?? (data ? "Page not found" : "Writing")
+    : ({ about: "About & experience", projects: "Projects", notes: "Notes", archive: "Archive" } as Record<string, string>)[path[0]]
+      ?? (path.length ? "Page not found" : "Notes, stories & work");
+  useEffect(() => {
+    document.title = `${routeTitle} — ${data?.profile.name ?? "Borworn"}`;
+  }, [routeTitle, data?.profile.name]);
 
   if (legacyUrl) return null;
   if (!supabase)

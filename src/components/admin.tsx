@@ -213,7 +213,10 @@ export default function Admin({
     setPreview(false);
     setMessage("");
     if (window.innerWidth < 1100)
-      editorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      editorRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        block: "start",
+      });
   }
   function edit(e?: Entry) {
     if (dirty) {

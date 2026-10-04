@@ -12,6 +12,7 @@ export function Shell({
 }) {
   return (
     <div className="site">
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <header className="site-header">
         <a className="brand" href="/">
           {p.name.toLowerCase()}
@@ -37,7 +38,7 @@ export function Shell({
           Get in touch <ArrowRight size={15} />
         </a>
       </header>
-      <main className="site-main">{children}</main>
+      <main className="site-main" id="main-content" tabIndex={-1}>{children}</main>
       <footer className="site-footer">
         <span>
           © {new Date().getFullYear()} {p.name}. All rights reserved.

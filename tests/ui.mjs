@@ -104,6 +104,17 @@ try {
   assert.match(notes, /1 min read/);
   assert.doesNotMatch(notes, /Notes &amp; thoughts|A place for small thoughts|>Resume<|>Blog</);
   assert.match(about, /id="resume"/);
+  assert.match(about, /href="#main-content">Skip to content<\/a>/);
+  assert.match(about, /id="main-content" tabindex="-1"/);
+  const searchPage = renderToStaticMarkup(React.createElement(Content, {
+    path: ["notes"], q: { q: "journey", tag: "Writing" },
+    data: { profile, entries, listing: { total: 45, page: 2, pageSize: 20, tags: ["Writing"] } },
+  }));
+  assert.match(searchPage, /href="\/notes">Clear search and filters<\/a>/);
+  assert.match(searchPage, /aria-label="Writing pages"/);
+  assert.match(searchPage, /Page 2 of 3/);
+  assert.match(searchPage, /href="\/notes\?q=journey&amp;tag=Writing&amp;page=1"/);
+  assert.match(searchPage, /href="\/notes\?q=journey&amp;tag=Writing&amp;page=3"/);
   const detail = renderToStaticMarkup(React.createElement(Content, { path: ["notes", "note-1"], q: {}, data: { profile, entries } }));
   assert.match(detail, /1 min read/);
   assert.match(detail, /src="\/images\/Profile.jpg"/);
